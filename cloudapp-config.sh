@@ -25,7 +25,7 @@ else
 fi
 
 if [ -f $webapps/api/config/application.yml ];then
-  sed "s/jdbc:mysql:\/\/mysqlserver:3306\/[a-zA-Z\.]*?/jdbc:mysql:\/\/mysqlserver:3306\/$database?/" $webapps/api/config/application.yml
+  sed -i "s/jdbc:mysql:\/\/mysqlserver:3306\/[a-zA-Z\.]*?/jdbc:mysql:\/\/mysqlserver:3306\/$database?/" $webapps/api/config/application.yml
 else
   echo application.yml not found!
 fi
