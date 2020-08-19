@@ -9,9 +9,9 @@ database=$3
 if [ ! $database ];then
     echo 'Usage: cloudapp-config.sh <app> <port> <database>'
     echo '   Option:'
-    echo '      app       - Application name'
-    echo '      port      - Nginx port'
-    echo '      database  - Application database name'
+    echo '      app       - app name a.w.a. prefix of docker container name'
+    echo '      port      - expose port from host'
+    echo '      database  - database name'
     exit
 fi
 
@@ -24,11 +24,11 @@ else
   echo docker-compose.yml not found!
 fi
 
-if [ -f $webapps/greenfield.yml ];then
-	sed -i "s/MYSQL_DATABASE:[[:space:]]*[a-zA-Z\.]*/MYSQL_DATABASE: $database/" $webapps/greenfield.yml
-  sed -i "s/container_name:[[:space:]]*\${[a-zA-Z\.]*}-/container_name: $app-/g" $webapps/greenfield.yml
+if [ -f $webapps/docker-compose-greenfield.yml ];then
+	sed -i "s/MYSQL_DATABASE:[[:space:]]*[a-zA-Z\.]*/MYSQL_DATABASE: $database/" $webapps/docker-compose-greenfield.yml
+  sed -i "s/container_name:[[:space:]]*\${[a-zA-Z\.]*}-/container_name: $app-/g" $webapps/docker-compose-greenfield.yml
 else
-  echo greenfield.yml not found!
+  echo docker-compose-greenfield.yml not found!
 fi
 
 if [ -f $webapps/api/config/application.yml ];then
@@ -45,5 +45,5 @@ fi
 
 
 ## 运行greenfield进行数据库初始化
-docker-compose -f greenfield.yml up
+docker-compose -f docker-compose-greenfield.yml up
 
