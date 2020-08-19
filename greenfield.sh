@@ -37,6 +37,12 @@ else
   echo application.yml not found!
 fi
 
+if [ -f $webapps/api/config/application-greenfield.yml ];then
+  sed -i "s/jdbc:mysql:\/\/mysqlserver:3306\/[a-zA-Z\.]*?/jdbc:mysql:\/\/mysqlserver:3306\/$database?/" $webapps/api/config/application-greenfield.yml
+else
+  echo application-greenfield.yml not found!
+fi
+
 
 ## 运行greenfield进行数据库初始化
 docker-compose -f greenfield.yml up

@@ -11,6 +11,10 @@ services:
     environment:
       TZ: "Asia/Shanghai"
       GREENFIELD: 'run'
+    command:
+      - /bin/sh
+      - /usr/local/bin/run.sh
+
 
   mysqlserver:
     container_name: ${app}-mysql
