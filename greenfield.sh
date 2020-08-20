@@ -7,7 +7,7 @@ port=$2
 database=$3
 
 if [ ! $database ];then
-    echo 'Usage: cloudapp-config.sh <app> <port> <database>'
+    echo 'Usage: greenfield.sh <app> <port> <database>'
     echo '   Option:'
     echo '      app       - app name a.w.a. prefix of docker container name'
     echo '      port      - expose port from host'
