@@ -16,7 +16,7 @@
 - **nginx**：`docker-compose.yml`中**Nginx反向代理组件**挂载区，用于整个应用**访问地址路由、服务转发**等功能。
 - **script**：本项目的**所有原始脚本文件**都集中于该文件夹下，方便后续开发者自行扩展。
 - **web**：`docker-compose.yml`中**Web页面组件**挂载区，也是云应用页面视图文件夹，用于**提供应用前端视图，存放资源文件**等功能。
-- **docker-compose.yml**：标准`docker-compose`编排初始模板，内含** `API`、`Web`、`MySQL`和`Nginx`等四个关键组件 **，可自行扩展或修改配置。
+- **docker-compose.yml**：标准`docker-compose`编排初始模板，内含 `API`、`Web`、`MySQL`和`Nginx`等四个关键组件 ，可自行扩展或修改配置。
 - **greenfield.sh**：用于**初始化标准Docker云应用**的脚本文件，初次使用请在同级目录下执行`sh greenfiled.sh`查阅帮助文档。
 
 ## :earth_asia:2. 运行环境
