@@ -116,7 +116,7 @@ $ # docker-compose up -d  ## 应用后台运行
 >**Tips：本部署模板已提供自动装配脚本工具文件，位于`api-src/*.sh`，其中`deployless.sh`用于API自动装配使用，`deployless_page.sh`用于Web Page自动装配使用，自动装配前请确保云应用已正式部署。**
 ---
 
-拷贝`api-src`下的`deployless.sh`文件*（或`deployless_pages.sh`文件）*至本地**待装配API模块工程根目录下**  *（或待装配Web Pages同级目录下）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量，其组成规则为 **“用户名@服务器IP:本项目在服务器路径”** ，具体示例如下所示，修改完成后保存。
+拷贝`api-src`下的`deployless.sh`文件 *（或`deployless_pages.sh`文件）* 至本地**待装配API模块工程根目录下**  *（或待装配Web Pages同级目录下）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量，其组成规则为 **“用户名@服务器IP:本项目在服务器路径”** ，具体示例如下所示，修改完成后保存。
 
 - `target`变量
 
