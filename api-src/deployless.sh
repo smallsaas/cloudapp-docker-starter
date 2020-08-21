@@ -3,8 +3,7 @@
 mod=$1
 
 ## host ##
-#target='ems@mall.smallsaas.cn:/home/ems/am'
-target='root@dev.svcpaas.smallsaas.cn:/root/dev/'
+target='root@server_ip:/root/dev/'
 #### split from target  below ###
 app_path=${target##*:}  ## cur before :
 ssh_host=${target%%:*}
