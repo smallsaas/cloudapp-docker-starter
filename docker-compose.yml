@@ -3,7 +3,7 @@ services:
   # docker-compose -f docker-compose.yml up --detach --build  ## for recreating th
 
   api:
-    container_name: ${app}-api
+    container_name: test-api
     image: 'zelejs/allin-web:jdk11'
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -13,19 +13,24 @@ services:
       #GREENFIELD: 'run'
 
   web:
-    container_name: ${app}-web
-    image: 'daocloud.io/library/nginx:latest'
+    container_name: test-web
+    image: 'daocloud.io/library/node:12'
+    working_dir: /web
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./web/dist:/usr/share/nginx/html
+      - ./web:/web
+      - ./web/logs:/web/logs
+    entrypoint:
+      - npm
+      - start
     environment:
       TZ: "Asia/Shanghai"
 
   nginx:
-    container_name: ${app}-nginx
+    container_name: test-nginx
     image: 'daocloud.io/library/nginx:latest'
     ports:
-      - 80:80
+      - 8080:80
       #- 443:443
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
@@ -35,12 +40,12 @@ services:
       TZ: "Asia/Shanghai"
 
   mysqlserver:
-    container_name: ${app}-mysql
+    container_name: test-mysql
     image: 'daocloud.io/library/mysql:5.7'
     restart: always
     environment:
       TZ: "Asia/Shanghai"
-      MYSQL_DATABASE: database
+      MYSQL_DATABASE: test
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./mysql/data:/var/lib/mysql

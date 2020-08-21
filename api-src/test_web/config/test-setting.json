@@ -1,0 +1,76 @@
+{
+  "pageName": "测试页面",
+  "listAPI": "/api/example",
+  "createAPI": "/api/example",
+  "getAPI": "/api/example/[id]",
+  "updateAPI": "/api/example/[id]",
+  "deleteAPI": "/api/example/(id)",
+  "searchFields": [
+    {
+      "field": "search",
+      "label": "搜索",
+      "type": "input"
+    }
+  ],
+  "tableFields": [
+    {
+      "label": "姓名",
+      "field": "name"
+    },
+    {
+      "valueType": "tag",
+      "options": {
+        "map": {
+          "0": "男",
+          "1": "女"
+        },
+        "color": {
+          "0": "lightblue",
+          "1": "#fc7ebe"
+        }
+      },
+      "label": "性别",
+      "field": "sex"
+    }
+  ],
+  "formFields": [
+    {
+      "label": "姓名",
+      "field": "name",
+      "type": "input"
+    },
+    {
+      "options": [
+        {
+          "label": "男",
+          "value": "0"
+        },
+        {
+          "label": "女",
+          "value": "1"
+        }
+      ],
+      "label": "性别",
+      "field": "sex",
+      "type": "radio"
+    }
+  ],
+  "map": {
+    "sex": {
+      "map": {
+        "0": "男",
+        "1": "女"
+      },
+      "options": [
+        {
+          "label": "男",
+          "value": "0"
+        },
+        {
+          "label": "女",
+          "value": "1"
+        }
+      ]
+    }
+  }
+}
