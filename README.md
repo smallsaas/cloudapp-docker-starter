@@ -101,7 +101,7 @@ Initialize deployless.sh successfully.
 
 ## :dash:5. 正式部署
 
-执行完上述初始化后，切换路径至项目根目录处*（与`docker-compose.yml`文件夹同级目录）*，执行`docker-compose up`指令，观察是否执行成功，具体指令如下所示：
+执行完上述初始化后，切换路径至项目根目录处 *（与`docker-compose.yml`文件夹同级目录）* ，执行`docker-compose up`指令，观察是否执行成功，具体指令如下所示：
 
 ```shell
 $ cd ~/crudless-docker-sandbox
