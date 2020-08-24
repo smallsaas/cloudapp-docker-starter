@@ -5,12 +5,10 @@ routerName=$2
 routerPath=$3
 
 ## host ##
-#target='ems@mall.smallsaas.cn:/home/ems/am'
-target='root@dev.svcpaas.smallsaas.cn:/root/dev/'
+target='root@dev.svcpaas.smallsaas.cn:/root/dev/web'
 #### split from target  below ###
 app_path=${target##*:}  ## cur before :
 ssh_host=${target%%:*}
-app='${app}-web'
 ####
 
 
@@ -49,14 +47,14 @@ deploy_page() {
    ## package page with tar
    echo tar -cvf ${mod}.tar ${mod} 
    tar -cvf ${mod}.tar ${mod}
-   echo scp ${mod}.tar $target/$app/src/pages
-   scp ${mod}.tar $target/$app/src/pages
+   echo scp ${mod}.tar $target/src/pages
+   scp ${mod}.tar $target/src/pages
    ## clean after scp
    echo rm ${mod}.tar
    rm ${mod}.tar
 
-   echo ssh $ssh_host \"cd $app_path/$app/src/pages and exec deploy-page.sh\"
-   ssh $ssh_host "cd $app_path/$app/src/pages && sh deploy-page.sh $mod $routerName $routerPath"
+   echo ssh $ssh_host \"cd $app_path/src/pages and exec deploy-page.sh\"
+   ssh $ssh_host "cd $app_path/src/pages && sh deploy-page.sh $mod $routerName $routerPath"
 }
 
 ## main  ##

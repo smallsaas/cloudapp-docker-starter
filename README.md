@@ -127,9 +127,9 @@ $ # docker-compose up -d  ## 应用后台运行
 # 修改deployless.sh / deployless_pages.sh文件
 # 服务器ip：server_ip
 # 用户名：root
-# 本项目在服务器存储位置：/root/dev/crudless-docker-sandbox
+# 本项目在服务器存储位置：/root/dev/crudless-docker-sandbox/api or web
 ## host ##
-target='root@server_ip:/root/dev/crudless-docker-sandbox'
+target='root@server_ip:/root/dev/crudless-docker-sandbox/api or /web'
 ```
 
 ### a. 装配API
