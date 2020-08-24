@@ -116,9 +116,12 @@ $ # docker-compose up -d  ## 应用后台运行
 >**Tips：本部署模板已提供自动装配脚本工具文件，位于`api-src/*.sh`，其中`deployless.sh`用于API自动装配使用，`deployless_page.sh`用于Web Page自动装配使用，自动装配前请确保云应用已正式部署。**
 ---
 
-拷贝`api-src`下的`deployless.sh`文件 *（或`deployless_pages.sh`文件）* 至本地**待装配API模块工程根目录下**  *（或待装配Web Pages同级目录下）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量，其组成规则为 **“用户名@服务器IP:本项目在服务器路径”** ，具体示例如下所示，修改完成后保存。
+拷贝`api-src`下的`deployless.sh`文件 *（或`deployless_pages.sh`文件）* 至本地**待装配API模块工程根目录下**  *（或待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量，其组成规则为 **“用户名@服务器IP:本项目在服务器路径”** 。具体文件说明与示例如下所示，修改完成后保存。
 
-- `target`变量
+- `deployless.sh`：用于装配API的脚本工具文件。
+- `deployless_pages.sh`：用于装配Web Page的脚本工具文件。
+
+- 修改两份脚本文件中的`target`变量
 
 ```shell
 # 修改deployless.sh / deployless_pages.sh文件
@@ -131,7 +134,9 @@ target='root@server_ip:/root/dev/crudless-docker-sandbox'
 
 ### a. 装配API
 
-在待装配API模块的工程根目录下**执行该脚本文件**，例如装配名称为`test`的模块，则运行如下指令。
+使用`mvn package`使待装配API生成`target`文件夹，其中包含资源包`*-x.x.x.jar`。
+
+随后在在待装配API模块的工程根目录下**执行`deployless.sh`脚本文件**  ，例如装配名称为`test`的模块，则运行如下指令。
 
 ```shell
 $ sh deployless.sh test
@@ -139,7 +144,7 @@ $ sh deployless.sh test
 
 ### b. 装配Web Page
 
-在待装配Web Page同级目录下**执行该脚本文件**，例如装配名称为`test_page`的页面模块并**配置菜单路由**，则运行如下指令。
+在待装配Web Page同级目录下**执行该脚本文件** ，例如装配名称为`test_page`的页面模块并**配置菜单路由**，则运行如下指令。
 
 ```shell
 $ sh deployless_pages.sh test_page t/t
