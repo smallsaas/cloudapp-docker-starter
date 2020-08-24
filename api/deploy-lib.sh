@@ -13,7 +13,7 @@ standalone_jar=${DL_STANDALONE}
 dockername=${DL_DOCKERNAME}
 app='app.jar'
 keep=2
-webapp='webapps'
+webapp='/webapps'
 
 # 切换至工作目录下
 cd $webapp
