@@ -3,9 +3,7 @@
 mod=$1
 
 ## host ##
-target='root@server_ip:/root/dev/api/
-
-'
+target='root@server_ip:/root/dev/api/'
 #### split from target  below ###
 app_path=${target##*:}  ## cur before :
 ssh_host=${target%%:*}
@@ -47,7 +45,7 @@ deploy_lib() {
   echo scp $list ${target}/lib
   scp $list ${target}/lib
   echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh\"
-  ssh $ssh_host "cd $app_path/${app} && sh docker-deploy-lib.sh"
+  ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh"
 }
 
 

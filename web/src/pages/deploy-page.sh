@@ -3,8 +3,6 @@ mod=$1
 routeName=$2
 routePath=$3
 
-docker_web=${app}-web
-
 if [ ! -f ${mod}.tar ];then
    echo ${mod}.tar not exists
    exit

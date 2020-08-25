@@ -2,15 +2,13 @@
 
 ################################
 ## define your var for lib deploy
-#export DL_STANDALONE='env-test-saas-1.0.0-standalone.jar'
-export DL_DOCKERNAME='${app}-api'
+export DL_STANDALONE='env-test-saas-1.0.0-standalone.jar'
 export SQL_PATH='BOOT-INF/classes/db/migration'
 export BOOT_INF_LIB='BOOT-INF/lib/'
 ################################
 
 ## main
 standalone_jar=${DL_STANDALONE}
-dockername=${DL_DOCKERNAME}
 app='app.jar'
 keep=2
 webapp='/webapps'

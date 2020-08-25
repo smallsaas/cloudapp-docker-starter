@@ -9,7 +9,7 @@
 
 
 docker_tool=${app}-api
-docker_api=${app}-api
+docker_api=api
 
 
 if [ ! $docker_tool ];then
