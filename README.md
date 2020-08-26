@@ -33,7 +33,7 @@
 |                         **JDK**                          |   11    |
 |                        **Maven**                         |  3.6.3  |
 |                        **Docker**                        | 19.03.8 |
-|                       **Node.JS**                        | 6.14.6  |
+|                       **Node.JS**                        | 12.18.3 |
 | **[zero-json](https://github.com/kequandian/zero-json)** |  2.7.0  |
 |                    **docker-compose**                    | 1.25.0  |
 
