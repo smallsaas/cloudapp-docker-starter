@@ -25,6 +25,8 @@
 
 >**其中各个工具安装过程可自行在互联网查阅相关安装与教程资料，本文将不再赘述。**
 
+>**Apache Maven：下载 [settings.xml](http://zele.pro:8000/devops/settings.xml) 文件*（用于配置 apache archive 私服授权）*,并保存于`maven/conf/`目录下。**
+
 |                          Tools                           | Version |
 | :------------------------------------------------------: | :-----: |
 |                         **Git**                          | 2.28.0  |

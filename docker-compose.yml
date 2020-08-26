@@ -12,6 +12,8 @@ services:
     environment:
       TZ: "Asia/Shanghai"
       #GREENFIELD: 'run'
+    depends_on:
+      - "mysqlserver"
 
   web:
     container_name: ${app}-web
