@@ -73,11 +73,6 @@ Usage: greenfield.sh <app> <port> <database>
 ```shell
 $ sh greenfield.sh test 8888 test
 Initialize application.yml successfully.
-Initialize deploy-page.sh successfully.
-Initialize docker-deploy-lib.sh successfully.
-Initialize docker-lib.sh successfully.
-Initialize deployless_pages.sh successfully.
-Initialize deployless.sh successfully.
 ...
 ...
 ...
