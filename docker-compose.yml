@@ -41,6 +41,9 @@ services:
       - ./nginx/cert:/cert
     environment:
       TZ: "Asia/Shanghai"
+    depends_on:
+      - "api"
+      - "web"
 
   mysqlserver:
     container_name: ${app}-mysql
