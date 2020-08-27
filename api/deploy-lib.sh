@@ -75,7 +75,7 @@ for lib in $(ls); do
       if [ ! -d $inf_dir ]; then
          mkdir -p $inf_dir
       fi
-      echo mv $lib $inf_dir 1>&2
+      #echo mv $lib $inf_dir 1>&2
       mv $lib $inf_dir
    fi
 done

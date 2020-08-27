@@ -13,8 +13,8 @@ ssh_host=${target%%:*}
 
 
 ## debug
-echo ssh_host= $ssh_host
-echo app_path= $app_path
+#echo ssh_host= $ssh_host
+#echo app_path= $app_path
 #exit
 ## end debug
 
