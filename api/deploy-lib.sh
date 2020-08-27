@@ -63,7 +63,6 @@ fi
 
 ## iterate lib
 cd lib
-pwd
 num=0
 ## 遍历提取lib包至BOOT-INF/lib,以便直接注入至JAR包
 for lib in $(ls); do
@@ -88,8 +87,6 @@ fi
 
 ## prepare done
 ## start deploy lib
-pwd
-
 ## 判断是否存在BOOT-INF文件夹是否存在
 if [ -d BOOT-INF ]; then
    for lib in $(ls $BOOT_INF_LIB); do
@@ -122,8 +119,7 @@ if [ -d BOOT-INF ]; then
 fi
 
 ## working dir
-cd ..;pwd
-#pwd
+cd ..;
 
 ## rollback
 rollback_issue=${standalone_jar}.rollback_$(date "+%m-%d")
