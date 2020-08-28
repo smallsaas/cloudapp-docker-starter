@@ -1,13 +1,4 @@
 #!/bin/sh
-
-##
-#docker-compose.yml
-#environment:
-#   DL_STANDALONE: "am-pack-1.0.0-standalone.jar"
-## 
-#export DL_STANDALONE=am-pack-1.0.0-standalone.jar
-
-
 docker_tool=${app}-api
 docker_api=api
 
@@ -23,10 +14,8 @@ if [ ! $docker_api ];then
 fi
 
 ## deploy
-docker exec $docker_tool sh ./deploy-lib.sh
+docker exec $docker_tool sh ./deploy-lib.sh $1
 
 echo ""
-echo "## run below line to restart docker if deploying lib is successful .."
-echo "docker-compose -f ../docker-compose.yml restart $docker_api"
 docker-compose -f ../docker-compose.yml restart $docker_api
 

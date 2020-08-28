@@ -44,7 +44,7 @@ deploy_lib() {
 
   echo scp $list ${target}/lib
   scp $list ${target}/lib
-  echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh\"
+  echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh $2\"
   ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh"
 }
 

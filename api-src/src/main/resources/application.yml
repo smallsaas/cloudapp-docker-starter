@@ -64,7 +64,6 @@ mybatis-plus:
     refresh-mapper: true
     logic-delete-value: -1
     logic-not-delete-value: 1
-    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: true #配置的缓存的全局开关
