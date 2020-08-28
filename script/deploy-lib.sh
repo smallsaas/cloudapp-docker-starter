@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ################################
 ## define your var for lib deploy
@@ -8,11 +8,13 @@ export BOOT_INF_LIB='BOOT-INF/lib/'
 ################################
 
 ## main
+option=$1
+force='^-f$'
+delete='^-d$'
 standalone_jar=${DL_STANDALONE}
 app='app.jar'
 keep=2
 webapp='/webapps'
-force=$2
 
 # 切换至工作目录下
 cd $webapp
@@ -43,13 +45,25 @@ fi
 
 ## iterate lib
 cd lib
+
+## delete
+if [[ "$option" =~ $delete ]] && [ $2 ];then
+	result=`zip -d $fixapp BOOT-INF/lib/$2 | sed -n '$p'`
+	if [[ ! $result =~ "error" ]];then
+		mv $fixapp ../$app
+	else
+		echo $result
+	fi
+	exit
+fi
+
 num=0
 ## 遍历提取lib包至BOOT-INF/lib,以便直接注入至JAR包
 for lib in $(ls); do
    echo Packing $lib ...
    if [ $lib != $fixapp ]; then
    result=`java -jar ../dependency.jar -cb $(readlink -f $fixapp) $(readlink -f $lib) | sed -n 1p` 
-	   if [ "$result" = "false" ] && [ "$force" != "-f" ]; then
+	   if [ "$result" = "false" ] && [[ ! "$option" =~ $force ]]; then
 			echo
 			java -jar ../dependency.jar -c $(readlink -f $fixapp) $(readlink -f $lib)
 			echo
@@ -107,23 +121,6 @@ fi
 ## working dir
 cd ..;
 
-## rollback
-rollback_issue=${standalone_jar}.rollback_$(date "+%m-%d")
-if [ -f $rollback_issue ];then
-   rm -f $rollback_issue
-fi
-if [ -f $app ];then
-   mv $app $rollback_issue
-
-   # Usage: predeploy.sh rollback keep <pattern> <num>
-   if [ -f /usr/local/bin/predeploy.sh ];then
-      bash /usr/local/bin/predeploy.sh rollback keep ${standalone_jar}.rollback_ $keep
-   elif [ -f ./predeploy.sh ];then
-      bash ./predeploy.sh rollback keep ${standalone_jar}.rollback_ $keep
-   fi
-fi
-
-##
 #deploy
 mv lib/$fixapp $app
 
