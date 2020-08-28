@@ -15,7 +15,13 @@ fi
 
 ## deploy
 docker exec $docker_tool sh ./deploy-lib.sh $1
+if [ "`ls -A lib`" = "" ];then
+    docker-compose -f ../docker-compose.yml restart $docker_api
+else
+    rm -rf lib/*
+fi
 
-echo ""
-docker-compose -f ../docker-compose.yml restart $docker_api
+
+
+
 

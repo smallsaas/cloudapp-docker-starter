@@ -84,7 +84,6 @@ if [ -d BOOT-INF ]; then
       sql=$(jar tf ${BOOT_INF_LIB}${lib} | grep sql)
       ## 判断lib包是否存在sql文件
       if [ "$sql" ]; then
-         echo extract sql dir
 		 ## 提取sql资源包
          jar xvf ${BOOT_INF_LIB}${lib} sql 
 		 ## 更改sql文件夹名称 为 db/migration方便后续注入
