@@ -108,14 +108,14 @@ $ # docker-compose up -d  ## 应用后台运行
 
 启动完成后，可通过`docker-compose ps`指令**查看各组件运行情况**。
 
-## :pushpin:6. 自动装配
+## :pushpin:6. 自动装配 / 卸载
 
->**Tips：本部署模板已提供自动装配脚本工具文件，位于`api-src/*.sh`，其中`deployless.sh`用于API自动装配使用，`deployless_page.sh`用于Web Page自动装配使用，自动装配前请确保云应用已正式部署。**
+>**Tips：本部署模板已提供自动装配脚本工具文件，位于`api-src/*.sh`，其中`deployless.sh`用于资源包自动装配使用，`deployless_page.sh`用于Web Page自动装配使用，自动装配前请确保云应用已正式部署。**
 ---
 
-拷贝`api-src`下的`deployless.sh`文件 *（或`deployless_pages.sh`文件）* 至本地**待装配API模块工程根目录下**  *（或待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量，其组成规则为 **“用户名@服务器IP:本项目在服务器路径”** 。具体文件说明与示例如下所示，修改完成后保存。
+拷贝`api-src`下的`deployless.sh`文件 *（或`deployless_pages.sh`文件）* 至本地**待装配资源包同级目录下**  *（或待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量，其组成规则为 **“用户名@服务器IP:本项目在服务器路径”** 。具体文件说明与示例如下所示，修改完成后保存。
 
-- `deployless.sh`：用于装配API的脚本工具文件。
+- `deployless.sh`：用于装配资源包的脚本工具文件。
 - `deployless_pages.sh`：用于装配Web Page的脚本工具文件。
 
 - 修改两份脚本文件中的`target`变量
@@ -129,17 +129,70 @@ $ # docker-compose up -d  ## 应用后台运行
 target='root@server_ip:/root/dev/crudless-docker-sandbox/api or /web'
 ```
 
-### a. 装配API
+### deployless.sh
 
-使用`mvn package`使待装配API生成`target`文件夹，其中包含资源包`*-x.x.x.jar`。
-
-随后在在待装配API模块的工程根目录下**执行`deployless.sh`脚本文件**  ，例如装配名称为`test`的模块，则运行如下指令。
+`deployless.sh`具体使用方法如下所示。
 
 ```shell
-$ sh deployless.sh test
+$ bash deployless.sh
+Usage: deployless <module>
+  e.g. deployless env-fault.jar
+  -d  --delete 删除资源包
+  -f  --force  强制装配资源包
 ```
 
-### b. 装配Web Page
+#### a. 装配资源包
+
+在**<u>待装配资源包同级目录下</u>** **执行`deployless.sh`脚本文件**  ，例如装配名称为`test.jar`的资源包，则运行如下装配指令。
+
+```shell
+$ bash deployless.sh test.jar
+```
+
+#### b. 强制装配资源包
+
+强制装配资源包用于**忽略依赖冲突所使用**，当正常装配资源包时，脚本工具将**对资源包与云端sandbox**进行依赖比对，判断所上传资源包是否能够注入。当无法注入时，将返回依赖对比信息，如下所示*（依赖冲突信息可用于处理使用）*。
+
+```bash
+$ bash deployless.sh test.jar
+.....
+Packing test.jar ...
+
+matches
+                        crud-dev-0.0.1.jar
+app-fix.jar-mismatches
+                        crud-core-0.0.5.jar
+                        crud-plus-0.1.0.jar
+                        ......
+                        spring-boot-starter-jdbc.jar
+                        spring-boot-starter-test.jar
+test.jar-mismatches
+                        crud-core-0.21.5.jar
+                        crud-plus-0.1.1.jar
+
+test.jar CAN'T be injected into env-test-saas-1.0.0-standalone.jar
+
+no lib to deploy !
+Done
+```
+
+当需忽略依赖冲突强制装配时，则可使用以下指令。
+
+```shell
+$ bash deployless.sh -f test.jar
+```
+
+#### c. 卸载资源包
+
+卸载资源包操作仍使用`deployless.sh`脚本文件执行，只需在命令中指定`-d`参数即可完成卸载资源包操作，具体例子如下所示 *（假设下述执行卸载Jar包为`test.jar`的资源包）*：
+
+```shell
+$ bash deployless.sh -d test.jar
+```
+
+### deployless_pages.sh
+
+#### a. 装配Web Page
 
 在待装配Web Page同级目录下**执行该脚本文件** ，例如装配名称为`test_page`的页面模块并**配置菜单路由**，则运行如下指令。
 

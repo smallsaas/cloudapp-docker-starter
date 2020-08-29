@@ -25,19 +25,18 @@ else
 fi
 
 if [ -f $webapps/api/config/application.yml ]; then
-	sed -i "s/jdbc:mysql:\/\/mysqlserver:3306\/[a-zA-Z\.]*?/jdbc:mysql:\/\/${app}-mysql:3306\/$database?/" $webapps/api/config/application.yml
-	echo Initialize application.yml successfully.
+  sed -i "s/jdbc:mysql:\/\/mysqlserver:3306\/[a-zA-Z\.]*?/jdbc:mysql:\/\/${app}-mysql:3306\/$database?/" $webapps/api/config/application.yml
+  echo Initialize application.yml successfully.
 else
   echo application.yml not found!
 fi
 
 if [ -f $webapps/api/docker-deploy-lib.sh ]; then
-	sed -i "s/docker_tool=[[:space:]]*\${[a-zA-Z\.]*}-/docker_tool=${app}-/" $webapps/api/docker-deploy-lib.sh
-	echo Initialize docker-deploy-lib.sh successfully.
+  sed -i "s/docker_tool=[[:space:]]*\${[a-zA-Z\.]*}-/docker_tool=${app}-/" $webapps/api/docker-deploy-lib.sh
+  echo Initialize docker-deploy-lib.sh successfully.
 else
-	echo $webapps/api/docker-deploy-lib.sh not found!
+  echo $webapps/api/docker-deploy-lib.sh not found!
 fi
-
 
 cd ./api-src && mvn package && cp ./target/env-test-saas-1.0.0-standalone.jar ../api/
 exit
