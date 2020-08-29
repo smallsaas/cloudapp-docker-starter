@@ -1,9 +1,11 @@
 #!/usr/bin/bash
 
 mod=$1
-
+option=$1
 ## host ##
 target='root@server_ip:/root/dev/api/'
+force='^-f$'
+delete='^-d$'
 #### split from target  below ###
 app_path=${target##*:}  ## cur before :
 ssh_host=${target%%:*}
@@ -19,7 +21,18 @@ ssh_host=${target%%:*}
 if [ ! $mod ];then
    echo 'Usage: deployless <module>'
    echo '  e.g. deployless env-fault'
+   echo '  -d  --delete 删除资源包'
+   echo '  -f  --force  强制装配资源包'
    exit
+fi
+
+if [[ "$option" =~ $force ]] || [[ "$option" =~ $delete ]];then
+	mod=$2
+	if [[ "$option" =~ $delete ]];then
+		echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh $option $mod\"
+		ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh $option $mod"
+		exit
+	fi
 fi
 
 if [ ! -d  $mod ];then
@@ -44,10 +57,9 @@ deploy_lib() {
 
   echo scp $list ${target}/lib
   scp $list ${target}/lib
-  echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh $2\"
-  ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh"
+  echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh $option\"
+  ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh $option"
 }
-
 
 ## main  ##
 cd $mod  ## go into module

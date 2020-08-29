@@ -11,22 +11,13 @@ app_path=${target##*:}  ## cur before :
 ssh_host=${target%%:*}
 ####
 
-
-## debug
-#echo ssh_host= $ssh_host
-#echo app_path= $app_path
-#exit
-## end debug
-
-
-
-if [ ! $mod -o ! $routerName -o ! $routerPath ];then
+if [ ! $mod ] || [ ! $routerName ] || [! $routerPath ];then
    echo 'Usage: deployless <page_name> <route_name> <router_path>'
-   echo '  e.g. deployless page_test test t/t'
+   echo '  e.g. deployless page_test 菜单名称 page_test'
    exit
 fi
 
-if [ ! -d  $mod ];then
+if [ ! -d $mod ];then
    if [ ! -d ../${mod} ];then 
      echo page $mod not exists
      exit
