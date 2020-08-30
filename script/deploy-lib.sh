@@ -11,6 +11,7 @@ export BOOT_INF_LIB='BOOT-INF/lib/'
 option=$1
 force='^-f$'
 delete='^-d$'
+list='^-l$'
 standalone_jar=${DL_STANDALONE}
 app='app.jar'
 keep=2
@@ -55,6 +56,12 @@ if [[ "$option" =~ $delete ]] && [ $2 ]; then
 	else
 		echo $result
 	fi
+	exit
+fi
+
+## list
+if [[ "$option" =~ $list ]]; then
+	java -jar ../dependency.jar -p $(readlink -f $fixapp)
 	exit
 fi
 

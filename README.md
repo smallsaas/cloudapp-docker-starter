@@ -108,14 +108,14 @@ $ # docker-compose up -d  ## 应用后台运行
 
 启动完成后，可通过`docker-compose ps`指令**查看各组件运行情况**。
 
-## :pushpin:6. 自动装配 / 卸载
+## :pushpin:6. 资源管理
 
 >**Tips：本部署模板已提供自动装配脚本工具文件，位于`api-src/*.sh`，其中`deployless.sh`用于资源包自动装配使用，`deployless_page.sh`用于Web Page自动装配使用，自动装配前请确保云应用已正式部署。**
 ---
 
 拷贝`api-src`下的`deployless.sh`文件 *（或`deployless_pages.sh`文件）* 至本地**待装配资源包同级目录下**  *（或待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量，其组成规则为 **“用户名@服务器IP:本项目在服务器路径”** 。具体文件说明与示例如下所示，修改完成后保存。
 
-- `deployless.sh`：用于装配资源包的脚本工具文件。
+- `deployless.sh`：用于管理资源包的脚本工具文件。
 - `deployless_pages.sh`：用于装配Web Page的脚本工具文件。
 
 - 修改两份脚本文件中的`target`变量
@@ -139,6 +139,7 @@ Usage: deployless <module>
   e.g. deployless env-fault.jar
   -d  --delete 删除资源包
   -f  --force  强制装配资源包
+  -l  --list   显示云端已装配资源包列表
 ```
 
 #### a. 装配资源包
@@ -182,7 +183,21 @@ Done
 $ bash deployless.sh -f test.jar
 ```
 
-#### c. 卸载资源包
+#### c. 查看已有资源包
+
+可通过`-l`指令参数查看云端已装配的资源包，可供后续进行管理，具体指令如下所示。
+
+```shell
+$ bash deployless.sh -l
+spring-boot-starter-jdbc.jar
+flyway-core-5.2.4.jar
+......
+crud-dev-0.0.1.jar
+crud-plus-0.1.0.jar
+crud-core-0.0.5.jar
+```
+
+#### d. 卸载资源包
 
 卸载资源包操作仍使用`deployless.sh`脚本文件执行，只需在命令中指定`-d`参数即可完成卸载资源包操作，具体例子如下所示 *（假设下述执行卸载Jar包为`test.jar`的资源包）*：
 
