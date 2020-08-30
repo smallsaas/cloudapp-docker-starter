@@ -144,7 +144,7 @@ Usage: deployless <module>
 
 #### a. 装配资源包
 
-在**<u>待装配资源包同级目录下</u>** **执行`deployless.sh`脚本文件**  ，例如装配名称为`test.jar`的资源包，则运行如下装配指令。
+在 **<u>待装配资源包同级目录下</u>**  **执行`deployless.sh`脚本文件**   ，例如装配名称为`test.jar`的资源包，则运行如下装配指令。
 
 ```shell
 $ bash deployless.sh test.jar
