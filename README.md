@@ -2,7 +2,7 @@
 
 ## :dart:0. 使用目的
 
-本项目旨在提供**一套完整的`docker-compose`标准工程文件**，配合本说明文档，能够在极短的时间内配置出一套使用`docker-compose`编排的**服务架构体系**，能够在其运行后使用工具往内部**注入服务API**、**可视化页面**等并实时更新的效果，最终达到**轻部署、易扩展且广适配**的云应用。
+本项目旨在提供**一套完整的`docker-compose`标准工程文件**，配合本说明文档，能够在极短的时间内配置出一套使用`docker-compose`编排的**服务架构体系**，能够在其运行后使用工具往内部**注入服务**、**可视化页面**等并实时更新的效果，最终达到**轻部署、易扩展且广适配**的云应用。
 
 ## :tokyo_tower:1. 项目结构
 
@@ -57,6 +57,8 @@ $ svn checkout https://github.com/smallsaas/crudless-docker-sandbox.git
 
 ### a. 初始化配置
 
+>**Tips：**
+
 切换至部署模板目录下，**运行初始化脚本**，可看到`greenfield.sh`脚本工具帮助文档说明，如下所示。
 
 ```shell
@@ -110,21 +112,28 @@ $ # docker-compose up -d  ## 应用后台运行
 
 ## :pushpin:6. 资源管理
 
->**Tips：本部署模板已提供自动装配脚本工具文件，位于`api-src/*.sh`，其中`deployless.sh`用于资源包自动装配使用，`deployless_page.sh`用于Web Page自动装配使用，自动装配前请确保云应用已正式部署。**
+资源管理则是整个sandbox的核心部分，通过资源管理可实现将本地的 **服务 / 页面** 装配至云端sandbox中，从而快速地进行测试。
+
+>**待装配资源：所有可装配Jar包**，如env-test-saas服务中使用`mvn package`生成的target目录下的`*-1.0.0.jar`资源和`crud-core-1.0.0.jar`统称为**待装配资源**。
+>
+>**Web Page：**使用**zero-json工具**生成的前端项目目录通常包含`src/pages`文件夹，其文件夹下的`login`则对应登录页面，后续所述Web Page则对应相应的该文件夹下的**page文件**。
+
+>**Tips：本部署模板已提供资源管理的脚本工具文件，位于`api-src/*.sh`，其中`deployless.sh`用于资源包管理使用，`deployless_page.sh`用于Web Page自动装配使用，进行资源管理前请确保云应用已成功正式部署。**
 ---
 
-拷贝`api-src`下的`deployless.sh`文件 *（或`deployless_pages.sh`文件）* 至本地**待装配资源包同级目录下**  *（或待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量，其组成规则为 **“用户名@服务器IP:本项目在服务器路径”** 。具体文件说明与示例如下所示，修改完成后保存。
+到sandbox部署根目录后拷贝`./api-src`下的`deployless.sh`和`deployless_pages.sh` 两份文件至本地 ，*（其中`deployless_pages.sh`必须放置在待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量。具体文件说明与示例如下所示，修改完成后保存。
 
-- `deployless.sh`：用于管理资源包的脚本工具文件。
-- `deployless_pages.sh`：用于装配Web Page的脚本工具文件。
+- `deployless.sh`：用于**管理资源包的脚本工具文件**。
+- `deployless_pages.sh`：用于**装配Web Page的脚本工具文件**。
 
-- 修改两份脚本文件中的`target`变量
+- 配置两份脚本文件中的`target`变量（其组成规则为 **“用户名@服务器IP:本项目在服务器存储位置”** ），如下所示
 
 ```shell
-# 修改deployless.sh / deployless_pages.sh文件
+# 分别修改deployless.sh / deployless_pages.sh文件
 # 服务器ip：server_ip
 # 用户名：root
 # 本项目在服务器存储位置：/root/dev/crudless-docker-sandbox/api or web
+# 其中deployless.sh中的路径需精确到api目录，而deployless_pages.sh中的路径需要精确到web目录
 ## host ##
 target='root@server_ip:/root/dev/crudless-docker-sandbox/api or /web'
 ```
@@ -135,8 +144,8 @@ target='root@server_ip:/root/dev/crudless-docker-sandbox/api or /web'
 
 ```shell
 $ bash deployless.sh
-Usage: deployless <module>
-  e.g. deployless env-fault.jar
+Usage: deployless <jarFile>
+  e.g. deployless d:/desktop/env-fault.jar
   -d  --delete 删除资源包
   -f  --force  强制装配资源包
   -l  --list   显示云端已装配资源包列表
@@ -144,15 +153,15 @@ Usage: deployless <module>
 
 #### a. 装配资源包
 
-在**<u>待装配资源包同级目录下</u>** **执行`deployless.sh`脚本文件**  ，例如装配名称为`test.jar`的资源包，则运行如下装配指令。
+**执行`deployless.sh`脚本文件**  ，例如装配放置在`d:desktop`中名称为`test.jar`的资源包，则运行如下装配指令。
 
 ```shell
-$ bash deployless.sh test.jar
+$ bash deployless.sh d:/desktop/test.jar
 ```
 
 #### b. 强制装配资源包
 
-强制装配资源包用于**忽略依赖冲突所使用**，当正常装配资源包时，脚本工具将**对资源包与云端sandbox**进行依赖比对，判断所上传资源包是否能够注入。当无法注入时，将返回依赖对比信息，如下所示*（依赖冲突信息可用于处理使用）*。
+强制装配资源包用于**忽略依赖冲突所使用**，当正常装配资源包时，脚本工具将 **对资源包与云端sandbox** 进行依赖比对，判断所上传资源包是否能够注入。当无法注入时，将返回依赖对比信息，如下所示*（依赖冲突信息可用于处理使用）*。
 
 ```bash
 $ bash deployless.sh test.jar
@@ -177,7 +186,7 @@ no lib to deploy !
 Done
 ```
 
-当需忽略依赖冲突强制装配时，则可使用以下指令。
+当需**忽略依赖冲突强制装配**时，则可使用以下指令。
 
 ```shell
 $ bash deployless.sh -f test.jar
@@ -185,7 +194,7 @@ $ bash deployless.sh -f test.jar
 
 #### c. 查看已有资源包
 
-可通过`-l`指令参数查看云端已装配的资源包，可供后续进行管理，具体指令如下所示。
+可通过`-l`指令参数**查看云端已装配的资源包**，可供后续进行管理，具体指令如下所示。
 
 ```shell
 $ bash deployless.sh -l
@@ -207,11 +216,47 @@ $ bash deployless.sh -d test.jar
 
 ### deployless_pages.sh
 
+`deployless_pages.sh`具体使用方法如下所示：
+
+```shell
+$ bash deployless_pages.sh
+Usage: deployless <page_name> <route_name> <router_path>
+  e.g. deployless page_test 菜单名称 page_test
+```
+
 #### a. 装配Web Page
 
 在待装配Web Page同级目录下**执行该脚本文件** ，例如装配名称为`test_page`的页面模块并**配置菜单路由**，则运行如下指令。
 
 ```shell
-$ sh deployless_pages.sh test_page t/t
+$ sh deployless_pages.sh test_page 菜单名称 test_page
 ```
+
+## :seedling:7. 测试用例
+
+>**测试目标：env-test-saas服务**
+>
+>**服务地址：devops@zele.pro:/home/devops/repo/env/env-test-saas.git**
+>
+>**测试内容：在完成sandbox部署的条件下，将通过本地测试的env-test-saas服务装配至sandbox并测试通过。**
+>
+>**期望结果：成功实现资源管理且装配后该服务中的接口与页面能够正常使用。**
+
+### a. 测试流程
+
+![测试流程](https://gitee.com/zchengb/image/raw/master///20200831113809.jpg)
+
+### b. 测试说明
+
+- 云端启动sandbox；
+- 通过Git Bash拉取env-test-saas项目；
+- 使用`mvn package`打包项目；
+- 从sandbox中的`api-src`下载`deployess.sh`与`deployless_pages.sh`脚本文件；
+- 修改脚本文件中的target值；
+- 使用deployless.sh**装配env-test-saas的Jar包**；
+- 使用deployless_pages.sh**装配env-test-saas的页面page**；
+- 使用Postman工具**测试接口是否存在且成功调用**；
+- 使用deployless.sh**卸载env-test-saas的Jar包**；
+- 使用Postman工具**测试接口是否已失效**；
+- 通过上述所有用例则说明测试成功。
 

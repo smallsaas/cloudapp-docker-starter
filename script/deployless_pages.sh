@@ -11,7 +11,7 @@ app_path=${target##*:} ## cur before :
 ssh_host=${target%%:*}
 ####
 
-if [ ! $mod ] || [ ! $routerName ] || [! $routerPath ]; then
+if [ ! $mod ] || [ ! $routerName ] || [ ! $routerPath ]; then
    echo 'Usage: deployless <page_name> <route_name> <router_path>'
    echo '  e.g. deployless page_test 菜单名称 page_test'
    exit
