@@ -221,8 +221,8 @@ $ bash deployless.sh -d test.jar
 
 ```shell
 $ bash deployless_pages.sh
-Usage: deployless <page_name> <route_name> <router_path>
-  e.g. deployless page_test 菜单名称 page_test
+Usage: bash deployless_pages.sh <page_path> <route_name> <router_path>
+  e.g. bash deployless_pages.sh web/src/pages/page_test 菜单名称 page_test
 ```
 
 #### a. 装配Web Page
@@ -230,7 +230,7 @@ Usage: deployless <page_name> <route_name> <router_path>
 在待装配Web Page同级目录下**执行该脚本文件** ，例如装配名称为`test_page`的页面模块并**配置菜单路由**，则运行如下指令。
 
 ```shell
-$ sh deployless_pages.sh test_page 菜单名称 test_page
+$ bash deployless_pages.sh src/pages/test_page 菜单名称 test_page
 ```
 
 ## :seedling:7. 测试用例

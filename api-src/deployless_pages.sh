@@ -12,8 +12,8 @@ ssh_host=${target%%:*}
 ####
 
 if [ ! $mod ] || [ ! $routerName ] || [ ! $routerPath ]; then
-   echo 'Usage: deployless <page_name> <route_name> <router_path>'
-   echo '  e.g. deployless page_test 菜单名称 page_test'
+   echo 'Usage: bash deployless_pages.sh <page_path> <route_name> <router_path>'
+   echo '  e.g. bash deployless_pages.sh web/src/pages/page_test 菜单名称 page_test'
    exit
 fi
 
