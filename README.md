@@ -119,6 +119,7 @@ $ # docker-compose up -d  ## 应用后台运行
 >**Web Page：**使用**zero-json工具**生成的前端项目目录通常包含`src/pages`文件夹，其文件夹下的`login`则对应登录页面，后续所述Web Page则对应相应的该文件夹下的**page文件**。
 
 >**Tips：本部署模板已提供资源管理的脚本工具文件，位于`api-src/*.sh`，其中`deployless.sh`用于资源包管理使用，`deployless_page.sh`用于Web Page自动装配使用，进行资源管理前请确保云应用已成功正式部署。**
+
 ---
 
 到sandbox部署根目录后拷贝`./api-src`下的`deployless.sh`和`deployless_pages.sh` 两份文件至本地 ，*（其中`deployless_pages.sh`必须放置在待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量。具体文件说明与示例如下所示，修改完成后保存。
@@ -153,11 +154,7 @@ Usage: deployless <jarFile>
 
 #### a. 装配资源包
 
-<<<<<<< HEAD
 **执行`deployless.sh`脚本文件**  ，例如装配放置在`d:desktop`中名称为`test.jar`的资源包，则运行如下装配指令。
-=======
-在 **<u>待装配资源包同级目录下</u>**  **执行`deployless.sh`脚本文件**   ，例如装配名称为`test.jar`的资源包，则运行如下装配指令。
->>>>>>> 3c14ee0b5157b52636548f2533c2e923ede30655
 
 ```shell
 $ bash deployless.sh d:/desktop/test.jar
@@ -165,11 +162,7 @@ $ bash deployless.sh d:/desktop/test.jar
 
 #### b. 强制装配资源包
 
-<<<<<<< HEAD
 强制装配资源包用于**忽略依赖冲突所使用**，当正常装配资源包时，脚本工具将 **对资源包与云端sandbox** 进行依赖比对，判断所上传资源包是否能够注入。当无法注入时，将返回依赖对比信息，如下所示*（依赖冲突信息可用于处理使用）*。
-=======
-强制装配资源包用于**忽略依赖冲突所使用**，当正常装配资源包时，脚本工具将 **对资源包与云端sandbox** 进行依赖比对，判断所上传资源包是否能够注入。当无法注入时，将返回依赖对比信息，如下所示 *（依赖冲突信息可用于处理使用）* 。
->>>>>>> 3c14ee0b5157b52636548f2533c2e923ede30655
 
 ```bash
 $ bash deployless.sh test.jar
