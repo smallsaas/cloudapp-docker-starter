@@ -5,7 +5,7 @@ routerName=$2
 routerPath=$3
 
 ## host ##
-target='root@dev.svcpaas.smallsaas.cn:/root/dev/web'
+target='root@server_ip:/root/dev/web/'
 #### split from target  below ###
 app_path=${target##*:} ## cur before :
 ssh_host=${target%%:*}
@@ -17,14 +17,12 @@ if [ ! $mod ] || [ ! $routerName ] || [ ! $routerPath ]; then
    exit
 fi
 
-if [ ! -d $mod ]; then
-   if [ ! -d ../${mod} ]; then
-      echo page $mod not exists
-      exit
-   else
-      cd ..
-   fi
+if [ ! -d $(readlink -f $mod) ]; then
+   echo page $mod not exists
+   exit
 fi
+
+mod=$(readlink -f $mod)
 
 ## deploy page
 deploy_page() {
@@ -48,7 +46,6 @@ deploy_page() {
 }
 
 ## main  ##
-
 if [ -f ${mod}/index.js ]; then
    deploy_page
 fi
