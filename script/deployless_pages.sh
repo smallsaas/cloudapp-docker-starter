@@ -22,19 +22,18 @@ if [ ! -d $(readlink -f $mod) ]; then
    exit
 fi
 
-mod=$(readlink -f $mod)
 
 ## deploy page
 deploy_page() {
    ## means page, check dist
-   if [ ! -d ${mod}/config ]; then
+   if [ ! -d $(readlink -f $mod)/config ]; then
       echo you try to deply page, but config not exists
       exit
    fi
 
    ## package page with tar
    echo tar -cvf ${mod}.tar ${mod}
-   tar -cvf ${mod}.tar ${mod}
+   tar -cvf $(readlink -f $mod).tar ${mod}
    echo scp ${mod}.tar $target/src/pages
    scp ${mod}.tar $target/src/pages
    ## clean after scp
@@ -46,7 +45,7 @@ deploy_page() {
 }
 
 ## main  ##
-if [ -f ${mod}/index.js ]; then
+if [ -f $(readlink -f $mod)/index.js ]; then
    deploy_page
 fi
 

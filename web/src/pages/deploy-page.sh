@@ -2,6 +2,19 @@
 mod=$1
 routeName=$2
 routePath=$3
+option=$1
+delete='^-d$'
+
+if [[ "$option" =~ $delete ]]; then
+	mod=$2
+	if [ -d $mod ]; then
+		rm -rf $mod
+		echo Success delete $mod
+	else
+		echo 'page not exists'
+	fi
+	exit
+fi
 
 if [ ! -f ${mod}.tar ]; then
    echo ${mod}.tar not exists
@@ -15,14 +28,6 @@ fi
 
 if [ ! $routePath ]; then
    echo 'routePath is NULL'
-   exit
-fi
-
-if [ -d $mod ]; then
-   # echo mv $mod ../backup/${mod}_page_$(date "+%Y-%m-%d_%H-%M")
-   # mv $mod ../backup/${mod}_page_$(date "+%Y-%m-%d_%H-%M")
-   echo ${mod}' is already EXIST.'
-   rm -f ${mod}.tar
    exit
 fi
 

@@ -25,17 +25,15 @@
 
 >**其中各个工具安装过程可自行在互联网查阅相关安装与教程资料，本文将不再赘述。**
 
->**Apache Maven：下载 [settings.xml](http://zele.pro:8000/devops/settings.xml) 文件 *（用于配置 apache archive 私服授权）* ,并保存于`maven/conf/`目录下。**
-
-|                          Tools                           | Version |
-| :------------------------------------------------------: | :-----: |
-|                         **Git**                          | 2.28.0  |
-|                         **JDK**                          |   11    |
-|                        **Maven**                         |  3.6.3  |
-|                        **Docker**                        | 19.03.8 |
-|                       **Node.JS**                        | 12.18.3 |
-| **[zero-json](https://github.com/kequandian/zero-json)** |  2.7.0  |
-|                    **docker-compose**                    | 1.25.0  |
+|                            Tools                             | Version |
+| :----------------------------------------------------------: | :-----: |
+| **[Git](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git)** | 2.28.0  |
+|                           **JDK**                            |   11    |
+|                          **Maven**                           |  3.6.3  |
+|                          **Docker**                          | 19.03.8 |
+|                         **Node.JS**                          | 12.18.3 |
+|   **[zero-json](https://github.com/kequandian/zero-json)**   |  2.7.0  |
+|                      **docker-compose**                      | 1.25.0  |
 
 ## ⚡3. 快速拉取
 
@@ -56,8 +54,6 @@ $ svn checkout https://github.com/smallsaas/crudless-docker-sandbox.git
 ## :memo:4. 快速配置
 
 ### a. 初始化配置
-
->**Tips：**
 
 切换至部署模板目录下，**运行初始化脚本**，可看到`greenfield.sh`脚本工具帮助文档说明，如下所示。
 
@@ -223,14 +219,25 @@ $ bash deployless.sh -d test.jar
 $ bash deployless_pages.sh
 Usage: bash deployless_pages.sh <page_path> <route_name> <router_path>
   e.g. bash deployless_pages.sh web/src/pages/page_test 菜单名称 page_test
+  -d  --delete 删除页面
 ```
 
 #### a. 装配Web Page
 
-在待装配Web Page同级目录下**执行该脚本文件** ，例如装配名称为`test_page`的页面模块并**配置菜单路由**，则运行如下指令。
+**执行`deployless_pages.sh`脚本文件进行装配页面** ，例如装配名称为`test_page`的页面模块并**配置菜单路由**，则运行如下指令。
 
 ```shell
 $ bash deployless_pages.sh src/pages/test_page 菜单名称 test_page
+```
+
+#### b. 删除Web Page
+
+**执行`deployless_pages.sh`脚本文件并带`-d`参数执行删除页面模块** ，例如删除上述装配名称为`test_page`的页面模块，则运行如下指令。
+
+```shell
+$ bash deployless_pages.sh -d test_page
+......
+Success delete test_page
 ```
 
 ## :seedling:7. 测试用例
