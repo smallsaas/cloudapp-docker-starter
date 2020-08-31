@@ -121,7 +121,7 @@ $ # docker-compose up -d  ## 应用后台运行
 到sandbox部署根目录后拷贝`./api-src`下的`deployless.sh`和`deployless_pages.sh` 两份文件至本地 ，*（其中`deployless_pages.sh`必须放置在待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量。具体文件说明与示例如下所示，修改完成后保存。
 
 - `deployless.sh`：用于**管理资源包的脚本工具文件**。
-- `deployless_pages.sh`：用于**装配Web Page的脚本工具文件**。
+- `deployless_pages.sh`：用于**管理Web Page的脚本工具文件**。
 
 - 配置两份脚本文件中的`target`变量（其组成规则为 **“用户名@服务器IP:本项目在服务器存储位置”** ），如下所示
 
