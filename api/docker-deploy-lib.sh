@@ -3,7 +3,7 @@ docker_tool=${app}-api
 docker_api=api
 
 if [ ! $docker_tool ]; then
-  echo deploy docker name of image allin-web:jdk11 not defined
+  echo deploy docker name of image allin-web:sandbox not defined
   exit
 fi
 

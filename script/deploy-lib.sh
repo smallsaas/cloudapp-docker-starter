@@ -2,7 +2,7 @@
 
 ################################
 ## define your var for lib deploy
-export DL_STANDALONE='env-test-saas-1.0.0-standalone.jar'
+export DL_STANDALONE='app.jar'
 export SQL_PATH='BOOT-INF/classes/db/migration'
 export BOOT_INF_LIB='BOOT-INF/lib/'
 ################################
@@ -19,16 +19,6 @@ webapp='/webapps'
 
 # 切换至工作目录下
 cd $webapp
-
-## not defined, find it.
-if [ ! $standalone_jar ]; then
-	standalone_jar=$(ls *-standalone.jar)
-fi
-
-# 判断是否存在standalone_jar
-if [ ! -f $standalone_jar ]; then
-	standalone_jar=${app}
-fi
 
 if [ ! -f $app ]; then
 	app=${standalone_jar}

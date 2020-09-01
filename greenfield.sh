@@ -38,7 +38,6 @@ else
   echo $webapps/api/docker-deploy-lib.sh not found!
 fi
 
-cd ./api-src && mvn package && cp ./target/env-test-saas-1.0.0-standalone.jar ../api/
 exit
 ## 运行greenfield进行数据库初始化
 #docker-compose -f docker-compose.yml up

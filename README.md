@@ -10,7 +10,6 @@
 
 >**挂载区：本项目采用Docker部署方式运行，应用Docker机制，为每个关键组件提供一个独立文件夹*（挂载区）*用于组件容器的空间映射。**
 
-- **api-src**：存储一套可立即通过`mvn package`生成可运行的`*-standalone.jar`文件。
 - **api**：`docker-compose.yml`中**云应用API接口组件**挂载区，云应用API文件夹，用于**运行接口、存储文件**等功能。
 - **mysql**：`docker-compose.yml`中**MySQL数据库组件**挂载区，也是云应用MySQL文件夹，用于**存储数据文件、记录日志**等功能。
 - **nginx**：`docker-compose.yml`中**Nginx反向代理组件**挂载区，用于整个应用**访问地址路由、服务转发**等功能。
@@ -28,8 +27,6 @@
 |                            Tools                             | Version |
 | :----------------------------------------------------------: | :-----: |
 | **[Git](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git)** | 2.28.0  |
-|                           **JDK**                            |   11    |
-|                          **Maven**                           |  3.6.3  |
 |                          **Docker**                          | 19.03.8 |
 |                         **Node.JS**                          | 12.18.3 |
 |   **[zero-json](https://github.com/kequandian/zero-json)**   |  2.7.0  |
@@ -39,7 +36,7 @@
 
 可使用**Git / SVN工具**快速将本部署模板拉取至服务器，具体命令如下所示。
 
-### a. Git
+### a. Git（[安装方法](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git)）
 
 ```shell
 $ git clone https://github.com/smallsaas/crudless-docker-sandbox.git
@@ -70,19 +67,12 @@ Usage: greenfield.sh <app> <port> <database>
 
 ```shell
 $ sh greenfield.sh test 8888 test
+Initialize docker-compose.yml successfully.
 Initialize application.yml successfully.
-...
-...
-...
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  xx.xxx s
-[INFO] Finished at: 20xx-xx-xxTxx:xx:xx+xx:xx
-[INFO] ------------------------------------------------------------------------
+Initialize docker-deploy-lib.sh successfully.
 ```
 
-看到上述`Initialize *.sh successfully`与`BUILD SUCCESS`同时出现，则说明本模板**初始化成功**，已成功构建一个云应用模板，**应用名称为`test`，测试端口号为`8888`，数据库名称为`test`**。
+看到上述`Initialize *.sh successfully`出现，则说明本模板**初始化成功**，已成功构建一个云应用模板，**应用名称为`test`，测试端口号为`8888`，数据库名称为`test`**。
 
 ### b. 初始化页面
 
@@ -116,12 +106,12 @@ $ # docker-compose up -d  ## 应用后台运行
 
 >**Tips：本部署模板已提供资源管理的脚本工具文件，位于`api-src/*.sh`，其中`deployless.sh`用于资源包管理使用，`deployless_page.sh`用于Web Page自动装配使用，进行资源管理前请确保云应用已成功正式部署。**
 
----
+| **File**                                                     | **Description**                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [deployless.sh](https://raw.githubusercontent.com/smallsaas/crudless-docker-sandbox/master/script/deployless.sh) | 用于**管理资源包的脚本工具文件**                             |
+| [deployless_pages.sh](https://github.com/smallsaas/crudless-docker-sandbox/raw/master/script/deployless_pages.sh) | 用于**管理Web Page的脚本工具文件** *（Web Page可根据zero-json单独生成）* |
 
-到sandbox部署根目录后拷贝`./api-src`下的`deployless.sh`和`deployless_pages.sh` 两份文件至本地 ，*（其中`deployless_pages.sh`必须放置在待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量。具体文件说明与示例如下所示，修改完成后保存。
-
-- `deployless.sh`：用于**管理资源包的脚本工具文件**。
-- `deployless_pages.sh`：用于**管理Web Page的脚本工具文件**。
+根据上述表格下载`deployless.sh`和`deployless_pages.sh` 两份文件至本地 ，*（其中`deployless_pages.sh`必须放置在待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量。具体文件说明与示例如下所示，修改完成后保存。
 
 - 配置两份脚本文件中的`target`变量（其组成规则为 **“用户名@服务器IP:本项目在服务器存储位置”** ），如下所示
 
@@ -150,10 +140,10 @@ Usage: deployless <jarFile>
 
 #### a. 装配资源包
 
-**执行`deployless.sh`脚本文件**  ，例如装配放置在`d:desktop`中名称为`test.jar`的资源包，则运行如下装配指令。
+**执行`deployless.sh`脚本文件**  ，例如装配放置在`d:desktop`中名称为`env-test-saas.jar`的资源包，则运行如下装配指令。
 
 ```shell
-$ bash deployless.sh d:/desktop/test.jar
+$ bash deployless.sh d:/desktop/env-test-saas.jar
 ```
 
 #### b. 强制装配资源包
@@ -161,7 +151,7 @@ $ bash deployless.sh d:/desktop/test.jar
 强制装配资源包用于**忽略依赖冲突所使用**，当正常装配资源包时，脚本工具将 **对资源包与云端sandbox** 进行依赖比对，判断所上传资源包是否能够注入。当无法注入时，将返回依赖对比信息，如下所示 *（依赖冲突信息可用于处理使用）* 。
 
 ```bash
-$ bash deployless.sh test.jar
+$ bash deployless.sh env-test-saas.jar
 .....
 Packing test.jar ...
 
@@ -173,11 +163,11 @@ app-fix.jar-mismatches
                         ......
                         spring-boot-starter-jdbc.jar
                         spring-boot-starter-test.jar
-test.jar-mismatches
+env-test-saas.jar-mismatches
                         crud-core-0.21.5.jar
                         crud-plus-0.1.1.jar
 
-test.jar CAN'T be injected into env-test-saas-1.0.0-standalone.jar
+env-test-saas.jar CAN'T be injected into app.jar
 
 no lib to deploy !
 Done
@@ -186,7 +176,7 @@ Done
 当需**忽略依赖冲突强制装配**时，则可使用以下指令。
 
 ```shell
-$ bash deployless.sh -f test.jar
+$ bash deployless.sh -f env-test-saas.jar
 ```
 
 #### c. 查看已有资源包
@@ -205,10 +195,10 @@ crud-core-0.0.5.jar
 
 #### d. 卸载资源包
 
-卸载资源包操作仍使用`deployless.sh`脚本文件执行，只需在命令中指定`-d`参数即可完成卸载资源包操作，具体例子如下所示 *（假设下述执行卸载Jar包为`test.jar`的资源包）*：
+卸载资源包操作仍使用`deployless.sh`脚本文件执行，只需在命令中指定`-d`参数即可完成卸载资源包操作，具体例子如下所示 *（假设下述执行卸载Jar包为`crud-core-0.0.1.jar`的资源包）*：
 
 ```shell
-$ bash deployless.sh -d test.jar
+$ bash deployless.sh -d crud-core-0.0.1.jar
 ```
 
 ### deployless_pages.sh
@@ -218,7 +208,7 @@ $ bash deployless.sh -d test.jar
 ```shell
 $ bash deployless_pages.sh
 Usage: bash deployless_pages.sh <page_path> <route_name> <router_path>
-  e.g. bash deployless_pages.sh web/src/pages/page_test 菜单名称 page_test
+  e.g. bash deployless_pages.sh web/src/pages/storesManagement 店铺管理 storesManagement
   -d  --delete 删除页面
 ```
 
@@ -227,7 +217,7 @@ Usage: bash deployless_pages.sh <page_path> <route_name> <router_path>
 **执行`deployless_pages.sh`脚本文件进行装配页面** ，例如装配名称为`test_page`的页面模块并**配置菜单路由**，则运行如下指令。
 
 ```shell
-$ bash deployless_pages.sh src/pages/test_page 菜单名称 test_page
+$ bash deployless_pages.sh web/src/pages/storesManagement 店铺管理 storesManagement
 ```
 
 #### b. 删除Web Page
@@ -235,9 +225,9 @@ $ bash deployless_pages.sh src/pages/test_page 菜单名称 test_page
 **执行`deployless_pages.sh`脚本文件并带`-d`参数执行删除页面模块** ，例如删除上述装配名称为`test_page`的页面模块，则运行如下指令。
 
 ```shell
-$ bash deployless_pages.sh -d test_page
+$ bash deployless_pages.sh -d storesManagement
 ......
-Success delete test_page
+Success delete storesManagement
 ```
 
 ## :seedling:7. 测试用例

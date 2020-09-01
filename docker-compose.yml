@@ -4,7 +4,7 @@ services:
 
   api:
     container_name: ${app}-api
-    image: 'zelejs/allin-web:jdk11'
+    image: 'zelejs/allin-web:sandbox'
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./api:/webapps
