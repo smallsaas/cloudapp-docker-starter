@@ -100,18 +100,20 @@ $ # docker-compose up -d  ## 应用后台运行
 
 资源管理则是整个sandbox的核心部分，通过资源管理可实现将本地的 **服务 / 页面** 装配至云端sandbox中，从而快速地进行测试。
 
->**待装配资源：所有可装配Jar包**，如env-test-saas服务中使用`mvn package`生成的target目录下的`*-1.0.0.jar`资源和`crud-core-1.0.0.jar`统称为**待装配资源**。
->
->**Web Page：**使用**zero-json工具**生成的前端项目目录通常包含`src/pages`文件夹，其文件夹下的`login`则对应登录页面，后续所述Web Page则对应相应的该文件夹下的**page文件**。
+- **待装配资源：所有可装配Jar包**，如env-test-saas服务中使用`mvn package`生成的target目录下的`*-1.0.0.jar`资源和`crud-core-1.0.0.jar`统称为**待装配资源**。
 
->**Tips：本部署模板已提供资源管理的脚本工具文件，位于`api-src/*.sh`，其中`deployless.sh`用于资源包管理使用，`deployless_page.sh`用于Web Page自动装配使用，进行资源管理前请确保云应用已成功正式部署。**
+- **Web Page：**使用**zero-json工具**生成的前端项目目录通常包含`src/pages`文件夹，其文件夹下的`login`则对应登录页面，后续所述Web Page则对应相应的该文件夹下的**page文件**。
+
+>**Tips：本部署模板已提供资源管理的脚本工具文件，位于`script/*.sh`，进行资源管理前请确保云应用已成功正式部署。**
+
+
 
 | **File**                                                     | **Description**                                              |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [deployless.sh](https://raw.githubusercontent.com/smallsaas/crudless-docker-sandbox/master/script/deployless.sh) | 用于**管理资源包的脚本工具文件**                             |
 | [deployless_pages.sh](https://github.com/smallsaas/crudless-docker-sandbox/raw/master/script/deployless_pages.sh) | 用于**管理Web Page的脚本工具文件** *（Web Page可根据zero-json单独生成）* |
 
-根据上述表格下载`deployless.sh`和`deployless_pages.sh` 两份文件至本地 ，*（其中`deployless_pages.sh`必须放置在待装配Web Pages同级目录下，**e.g. 待装配page位于`src/pages/`，则将脚本文件放置于`src/pages/`目录下**）* ，随后编辑该脚本文件，配置文件起始部分中的`target`变量。具体文件说明与示例如下所示，修改完成后保存。
+根据上述表格下载`deployless.sh`和`deployless_pages.sh` 两份文件至本地 ，随后编辑该脚本文件，配置文件起始部分中的`target`变量。具体文件说明与示例如下所示，修改完成后保存。
 
 - 配置两份脚本文件中的`target`变量（其组成规则为 **“用户名@服务器IP:本项目在服务器存储位置”** ），如下所示
 
