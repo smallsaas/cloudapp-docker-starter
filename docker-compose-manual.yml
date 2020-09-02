@@ -12,6 +12,7 @@ services:
     environment:
       TZ: "Asia/Shanghai"
       #GREENFIELD: 'run'
+    privileged: true
     depends_on:
       - "mysqlserver"
 
@@ -23,6 +24,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./web:/web
       - ./web/logs:/web/logs
+    privileged: true
     environment:
       TZ: "Asia/Shanghai"
 
@@ -38,6 +40,7 @@ services:
       - ./nginx/cert:/cert
     environment:
       TZ: "Asia/Shanghai"
+    privileged: true
     depends_on:
       - "api"
       - "web"
@@ -50,6 +53,7 @@ services:
       TZ: "Asia/Shanghai"
       MYSQL_DATABASE: database
       MYSQL_ROOT_PASSWORD: root
+    privileged: true
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/sql_mode.cnf:/etc/mysql/mysql.conf.d/sql_mode.cnf
