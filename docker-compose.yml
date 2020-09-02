@@ -17,15 +17,12 @@ services:
 
   web:
     container_name: ${app}-web
-    image: 'daocloud.io/library/node:12'
+    image: 'zelejs/node:sandbox'
     working_dir: /web
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./web:/web
       - ./web/logs:/web/logs
-    entrypoint:
-      - npm
-      - start
     environment:
       TZ: "Asia/Shanghai"
 
