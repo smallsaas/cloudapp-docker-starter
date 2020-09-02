@@ -16,6 +16,7 @@
 - **script**：本项目的**所有原始脚本文件**都集中于该文件夹下，方便后续开发者自行扩展。
 - **web**：`docker-compose.yml`中**Web页面组件**挂载区，也是云应用页面视图文件夹，用于**提供应用前端视图，存放资源文件**等功能。
 - **docker-compose.yml**：标准`docker-compose`编排初始模板，内含`API`、`Web`、`MySQL`和`Nginx`等四个关键组件，可自行扩展或修改配置。
+- **docker-compose-manual.yml**：与`docker-compose.yml`内容基本相同。唯一的不同是，其中的`API`与`Web`模块需要手动编译生成内容。
 - **greenfield.sh**：用于**初始化标准Docker云应用**的脚本文件，初次使用请在同级目录下执行`sh greenfiled.sh`查阅帮助文档。
 
 ## :earth_asia:2. 运行环境
@@ -74,11 +75,15 @@ Initialize docker-deploy-lib.sh successfully.
 
 看到上述`Initialize *.sh successfully`出现，则说明本模板**初始化成功**，已成功构建一个云应用模板，**应用名称为`test`，测试端口号为`8888`，数据库名称为`test`**。
 
-### b. 初始化页面
+### b. 初始化app.jar（docker-compose-manual.yml）
+
+进去`api`容器中使用`mvn package`指令手动生成`app.jar`包 *（仅使用`docker-compose-manual.yml`时需要手动初始化`app.jar`）* 。
+
+### c. 初始化页面（docker-compose-manual.yml）
 
 >**Tips：`npm install`过程较久，属正常现象，请耐心等待。**
 
-切换至web文件夹下，执行`npm install`命令安装web所需依赖，安装完成后可执行`npm start`进行测试是否可正常运行。
+切换至web文件夹下，执行`npm install`命令安装web所需依赖，安装完成后可执行`npm start`进行测试是否可正常运行 *（仅使用`docker-compose-manual.yml`时需要手动初始化页面）* 。
 
 ---
 

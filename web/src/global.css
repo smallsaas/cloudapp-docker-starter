@@ -1,0 +1,50 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.ant-layout {
+  height: 100%;
+}
+
+header.ant-layout-header {
+  padding: 0 30px;
+}
+
+#root .ant-back-top {
+  right: 20px;
+}
+
+.ant-select {
+  min-width: 6em;
+}
+
+.ant-typography {
+  word-break: break-all;
+}
+
+.ZEleA-margin-left {
+  margin-left: 12px;
+}
+
+.ZEleA-Breadcrumb-margin {
+  margin: 12px 0;
+}
+
+.ant-select {
+  max-width: 6em;
+}
+
+.ant-modal-body .ant-select {
+  max-width: 350px;
+}
+
+.ant-form-item-control input,
+.ant-input-password {
+  max-width: 350px;
+}
