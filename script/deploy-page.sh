@@ -4,10 +4,13 @@ routeName=$2
 routePath=$3
 option=$1
 delete='^-d$'
+pages='./src/pages'
 
+cd $pages
 if [[ "$option" =~ $delete ]]; then
 	mod=$2
 	if [ -d $mod ]; then
+	    zero-json router remove ${mod} -i ../config/router.config.js
 		rm -rf $mod
 		echo Success delete $mod
 	else

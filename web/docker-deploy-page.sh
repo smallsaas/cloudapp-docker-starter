@@ -7,4 +7,4 @@ if [ ! $docker_tool ]; then
 fi
 
 ## deploy
-docker exec $docker_tool bash ./src/pages/deploy-page.sh $*
+docker exec $docker_tool bash deploy-page.sh $*
