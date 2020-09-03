@@ -38,6 +38,13 @@ else
   echo $webapps/api/docker-deploy-lib.sh not found!
 fi
 
+if [ -f $webapps/web/docker-deploy-page.sh ]; then
+  sed -i "s/docker_tool=[[:space:]]*\${[a-zA-Z\.]*}-/docker_tool=${app}-/" $webapps/web/docker-deploy-page.sh
+  echo Initialize docker-deploy-page.sh successfully.
+else
+  echo $webapps/web/docker-deploy-page.sh not found!
+fi
+
 exit
 ## 运行greenfield进行数据库初始化
 #docker-compose -f docker-compose.yml up

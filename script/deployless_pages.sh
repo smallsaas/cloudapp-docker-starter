@@ -13,8 +13,8 @@ ssh_host=${target%%:*}
 ####
 
 if [[ "${mod}" =~ $delete ]]; then
-   echo ssh $ssh_host \"cd $app_path/src/pages and exec deploy-page.sh $*\"
-   ssh $ssh_host "cd $app_path/src/pages && sh deploy-page.sh $*"
+   echo ssh $ssh_host \"cd $app_path/src/pages and exec docker-deploy-page.sh $*\"
+   ssh $ssh_host "cd $app_path/src/pages && sh docker-deploy-page.sh $*"
    exit
 fi
 
@@ -47,8 +47,8 @@ deploy_page() {
    echo rm ${mod}.tar
    rm ${mod}.tar
 
-   echo ssh $ssh_host \"cd $app_path/src/pages and exec deploy-page.sh\"
-   ssh $ssh_host "cd $app_path/src/pages && sh deploy-page.sh $mod $routerName $routerPath"
+   echo ssh $ssh_host \"cd $app_path/src/pages and exec docker-deploy-page.sh\"
+   ssh $ssh_host "cd $app_path/src/pages && sh docker-deploy-page.sh $mod $routerName $routerPath"
 }
 
 ## main  ##
