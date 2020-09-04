@@ -4,6 +4,7 @@ mod=$1
 routerName=$2
 routerPath=$3
 delete='^-d$'
+list='^-l$'
 
 ## host ##
 target='root@server_ip:/root/dev/web/'
@@ -12,7 +13,7 @@ app_path=${target##*:}
 ssh_host=${target%%:*}
 ####
 
-if [[ "${mod}" =~ $delete ]]; then
+if [[ "${mod}" =~ $delete ]] || [[ "${mod}" =~ $list ]]; then
    echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
    ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh $*"
    exit
@@ -22,6 +23,7 @@ if [ ! $mod ] || [ ! $routerName ] || [ ! $routerPath ]; then
    echo 'Usage: bash deployless_pages.sh <page_path> <route_name> <router_path>'
    echo '  e.g. bash deployless_pages.sh web/src/pages/page_test 菜单名称 page_test'
    echo '  -d  --delete 删除页面'
+   echo '  -l   --list 页面列表'
    exit
 fi
 

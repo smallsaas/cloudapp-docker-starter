@@ -4,18 +4,23 @@ routeName=$2
 routePath=$3
 option=$1
 delete='^-d$'
+list='^-l$'
 pages='./src/pages'
 
 cd $pages
 if [[ "$option" =~ $delete ]]; then
 	mod=$2
 	if [ -d $mod ]; then
-		zero-json router remove ${mod} -i ../config/router.config.js
-		rm -rf $mod		
+	    zero-json router remove ${mod} -i ../config/router.config.js
+		rm -rf $mod
 		echo Success delete $mod
 	else
 		echo 'page not exists'
 	fi
+	exit
+elif [[ "$option" =~ $list ]];then
+	mod=$2
+	ls -l |grep "^d" |awk '{print $9}'
 	exit
 fi
 
