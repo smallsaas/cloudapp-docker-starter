@@ -58,7 +58,7 @@ if [[ "${mod}" =~ $ssh ]]; then
    ssh_copy_id
 fi
 
-if [ ! $mod || ! $routerName || ! $routerPath ]; then
+if [[ ! $mod || ! $routerName || ! $routerPath ]]; then
    echo 'Usage: bash deployless_pages.sh <page_path> <route_name> <router_path>'
    echo '  e.g. bash deployless_pages.sh web/src/pages/page_test 菜单名称 page_test'
    echo '  -d  --delete <pageName> 删除页面'
