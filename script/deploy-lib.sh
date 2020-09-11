@@ -9,8 +9,9 @@ export BOOT_INF_LIB='BOOT-INF/lib/'
 
 ## main
 option=$1
-force='^-f$'
+crudless='^-c$'
 delete='^-d$'
+force='^-f$'
 list='^-l$'
 standalone_jar=${DL_STANDALONE}
 app='app.jar'
@@ -47,12 +48,18 @@ if [[ "$option" =~ $delete ]] && [ $2 ]; then
 		echo $result
 	fi
 	exit
-fi
-
-## list
-if [[ "$option" =~ $list ]]; then
+elif [[ "$option" =~ $list ]]; then
 	java -jar ../dependency.jar -p $(readlink -f $fixapp)
 	exit
+elif [[ "$option" =~ $crudless ]]; then
+	java -jar ../cg-cli.jar $2 $3 $4
+	cd $2
+	mvn -Dmaven.repo.remote=http://120.79.49.72:8081/repository/internal package
+	mv ./target/*-1.0-SNAPSHOT.jar ../
+	cd ..	
+	if [[ $(pwd) =~ 'lib' ]]; then
+		rm -rf `ls | egrep -v '*.jar'`
+	fi
 fi
 
 num=0

@@ -23,6 +23,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./web:/web
+      - ./web/tmp:/web/tmp
       - ./web/logs:/web/logs
     privileged: true
     environment:
