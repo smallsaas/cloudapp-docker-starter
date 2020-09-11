@@ -21,12 +21,15 @@ import { set as VTSet } from 'zero-element/lib/config/valueType';
 import onPath from '@/listAction/onPath';
 
 import path from '@/actionItemType/path';
+import tabs from '@/actionItemType/tabs';
 
 import vPath from '@/valueType/path';
 
 import { message } from 'antd';
 
 import Content from '@/../zero-antd-dep/layout/Content';
+
+import './rewrite.less';
 
 APIConfig({
   'DEFAULT_current': 1,
@@ -68,8 +71,6 @@ golbalSet({
 
 
 if (process.env.NODE_ENV === 'development') {
-  //setEndpoint('http://192.168.0.1:8080');
-  //setEndpoint('http://dev.svcpaas.smallsaas.cn:8580');
 
   saveToken({
     token: '',
@@ -85,6 +86,7 @@ LASet({
 
 AITSet({
   path,
+  tabs,
 });
 
 VTSet({

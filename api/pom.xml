@@ -19,12 +19,29 @@
 
     <properties>
         <skipStandalone>false</skipStandalone>
-        <!---CRUD, scope provided-->
-        <crud-plus.version>0.1.0</crud-plus.version>
-        <crud-core.version>0.0.5</crud-core.version>
     </properties>
 
     <dependencies>
+		<dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>crud-tag</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+		<dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>crud-runtime</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+		<dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>crud-image</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+		<dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>eav</artifactId>
+            <version>2.1.1</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -45,12 +62,12 @@
         <dependency>
             <groupId>com.jfeat</groupId>
             <artifactId>crud-plus</artifactId>
-            <version>${crud-plus.version}</version>
+            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.jfeat</groupId>
             <artifactId>crud-core</artifactId>
-            <version>${crud-core.version}</version>
+            <version>0.0.5</version>
         </dependency>
         <!--  upgrade mysql to 8.0.15 -->
         <dependency>

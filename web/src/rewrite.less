@@ -1,0 +1,44 @@
+@import './theme.less';
+
+// #1890ff
+
+a {
+  color: @ZEle-primary-color;
+
+  &:focus,
+  &:hover {
+    color: @ZEle-primary-color-light;
+  }
+}
+
+.ant-btn-primary {
+  background-color: @ZEle-primary-color;
+  border-color    : @ZEle-primary-color;
+
+  &:focus,
+  &:hover {
+    background-color: @ZEle-primary-color-light;
+    border-color    : @ZEle-primary-color-light;
+  }
+}
+
+.ant-layout-header.header {
+  background: @ZEle-menu-top-bgColor;
+}
+
+/* tab */
+.ant-tabs-ink-bar {
+  background-color: @ZEle-primary-color;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: @ZEle-primary-color;
+}
+
+.ant-tabs-tab:hover {
+  color: @ZEle-primary-color-light;
+}
+
+.ant-tabs-top>.ant-tabs-nav::before {
+  border-bottom: unset;
+}

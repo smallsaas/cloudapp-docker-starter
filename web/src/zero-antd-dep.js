@@ -19,8 +19,9 @@ import LayoutSet_Items from '@/../zero-antd-dep/layout/Items';
 import CSet_Empty from '@/../zero-antd-dep/container/Empty';
 import CSet_Table from '@/../zero-antd-dep/container/List/Table';
 import CSet_ReportList from '@/../zero-antd-dep/container/List/ReportList';
+import CSet_ReportTable from '@/../zero-antd-dep/container/List/ReportList';
 import CSet_TreeTable from '@/../zero-antd-dep/container/List/TreeTable';
-import CSet_ChildrenList from '@/../zero-antd-dep/container/List/ChildrenList';
+import CSet_ChildrenTable from '@/../zero-antd-dep/container/List/ChildrenTable';
 import CSet_TreeList from '@/../zero-antd-dep/container/List/TreeList';
 import CSet_AutoReport from '@/../zero-antd-dep/container/List/AutoReport';
 import CSet_TableSelect from '@/../zero-antd-dep/container/List/TableSelect';
@@ -43,6 +44,7 @@ import FITSet_checkbox from '@/../zero-antd-dep/formItemType/Checkbox';
 import FITSet_map from '@/../zero-antd-dep/formItemType/Map';
 import FITSet_pcd from '@/../zero-antd-dep/formItemType/PCD';
 import FITSet_captcha from '@/../zero-antd-dep/formItemType/Captcha';
+import FITSet_tags from '@/../zero-antd-dep/formItemType/Tags';
 import FITSet_date from '@/../zero-antd-dep/formItemType/Date/date';
 import FITSet_week from '@/../zero-antd-dep/formItemType/Date/week';
 import FITSet_month from '@/../zero-antd-dep/formItemType/Date/month';
@@ -96,8 +98,9 @@ CSet({
 'Empty': CSet_Empty,
 'Table': CSet_Table,
 'ReportList': CSet_ReportList,
+'ReportTable': CSet_ReportTable,
 'TreeTable': CSet_TreeTable,
-'ChildrenList': CSet_ChildrenList,
+'ChildrenTable': CSet_ChildrenTable,
 'TreeList': CSet_TreeList,
 'AutoReport': CSet_AutoReport,
 'TableSelect': CSet_TableSelect,
@@ -128,6 +131,7 @@ FITSet({
 'map': FITSet_map,
 'pcd': FITSet_pcd,
 'captcha': FITSet_captcha,
+'tags': FITSet_tags,
 'date': FITSet_date,
 'week': FITSet_week,
 'month': FITSet_month,

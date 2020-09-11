@@ -15,7 +15,8 @@ export default ({ path, breadcrumb }) => {
     if (rst[1] === '/') {
       rst.splice(1, 1);
     }
-    rst[rst.length - 1] = rst[rst.length - 1].replace(/[_-](add|edit|view)$/g, '');
+    // rst[rst.length - 1] = rst[rst.length - 1].replace(/[_-](add|edit|view)$/g, '');
+    rst[rst.length - 1] = rst[rst.length - 1];
 
     return rst;
 
@@ -38,33 +39,54 @@ export default ({ path, breadcrumb }) => {
   }
 
   return <Breadcrumb className="ZEleA-Breadcrumb-margin">
-    {pathAry.map((item, i) => {
-      if (item === '/') {
-        return <Breadcrumb.Item key={item}>
+    {pathAry.map((path, i) => {
+      if (path === '/') {
+        return <Breadcrumb.Item key={path}>
           <Link to="/">首页</Link>
         </Breadcrumb.Item>;
       }
-      return <Breadcrumb.Item key={item}>
-        <Link to={item}>
-          {findPath(item, router).name}
-        </Link>
+      return <Breadcrumb.Item key={path}>
+        {/[_-](add|edit|view)$/.test(path) ?
+          <span>{findPath(path, router).name}</span>
+          : (
+            <Link to={path}>
+              {findPath(path, router).name}
+            </Link>
+          )}
       </Breadcrumb.Item>;
     })}
   </Breadcrumb>
 }
 
+
+const typeMap = {
+  add: '新增',
+  edit: '编辑',
+  view: '详情',
+};
 function findPath(path, router) {
   const queue = [...router];
   let rst = {};
-  while (queue.length) {
-    const route = queue.shift();
-    if (route.path === path) {
-      rst = route;
-      break;
+
+  if (path) {
+    while (queue.length) {
+      const route = queue.shift();
+      if (route.path === path) {
+        rst = route;
+        break;
+      }
+      if (route.items) {
+        queue.push(...route.items);
+      }
     }
-    if (route.items) {
-      queue.push(...route.items);
+    if (!rst.name) {
+      rst.name = findPath(path.replace(/\/[-\w]+$/, ''), router).name;
+      const type = /[_-](add|edit|view)$/.exec(path);
+      if (type) {
+        rst.name = `${rst.name}${typeMap[type[1]]}`;
+      }
     }
   }
+
   return rst;
 }

@@ -1,15 +1,12 @@
-import React, { useContext, useMemo, useEffect, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { Layout } from 'antd';
 import Breadcrumb from './Breadcrumb';
 import Login from './Login';
-import styles from './index.less';
-import win from 'zero-element/lib/utils/window';
+import './index.less';
 
 import GlobalContext from '@/framework/GlobalContext';
 
 import selectNavStyle from './utils/selectNavStyle';
-import { init, changeTheme } from './theme';
-init();
 
 const { Header, Content } = Layout;
 
@@ -18,7 +15,7 @@ export default function PrimaryLayout({
   menuData, breadcrumb,
 }) {
   const { style } = useContext(GlobalContext);
-  const { nav, theme } = style;
+  const { nav } = style;
   const [switchLeftNav, setSwitchLeftNav] = useState();
 
   const [
@@ -28,12 +25,8 @@ export default function PrimaryLayout({
     return selectNavStyle(nav, menuData, location.pathname, switchLeftNav);
   }, [nav, menuData, location.pathname, switchLeftNav]);
 
-  useEffect(_ => {
-    changeTheme(theme);
-  }, [theme]);
-
   // 当导航类型既不是 top 也不是 left 时, 应该在 top 渲染第一级菜单, left 渲染第二级
-  // 此时，点击 top 的导航时需要替换 left, 但不应该被路由
+  // 此时, 点击 top 的导航时需要替换 left, 但不应该被路由
   function handleSwitchLeftNav(path) {
     setSwitchLeftNav(path);
   }
@@ -42,8 +35,8 @@ export default function PrimaryLayout({
 
   return <Layout>
     {aloneView ? null : (
-      <Header className={`header ${styles.topNav}`}>
-        <div className={styles.logo}>
+      <Header className="header topNav">
+        <div className="logo">
           <a href="/">
             Zero Code
         </a>
@@ -54,23 +47,21 @@ export default function PrimaryLayout({
           navType={nav}
           onClick={nav === 'both' ? handleSwitchLeftNav : undefined}
         />
-        <div className={styles.login}>
+        <div className="login">
           <Login />
         </div>
       </Header>
     )}
-    <Layout className={styles.pageContainer}>
-      {aloneView ? null : (
-        <LeftNav path={location.pathname} menuData={LeftNavData} />
+    <Layout className="pageContainer">
+      {aloneView && LeftNav ? null : (
+        <LeftNav navType={nav} path={location.pathname} menuData={LeftNavData} />
       )}
-      <Layout id="contentContainer" className={styles.contentContainer} style={
+      <Layout id="contentContainer" className="contentContainer" style={
         aloneView ? undefined : { padding: '0 24px 24px' }
       }>
-        {win.ZEle.breadcrumb ? (
-          aloneView ? null : (
-            <Breadcrumb path={location.pathname} breadcrumb={breadcrumb} />
-          )
-        ) : null}
+        {aloneView ? null : (
+          <Breadcrumb path={location.pathname} breadcrumb={breadcrumb} />
+        )}
         <Content>
           {children}
         </Content>

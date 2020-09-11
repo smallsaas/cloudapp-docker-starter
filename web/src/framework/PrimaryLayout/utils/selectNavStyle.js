@@ -1,19 +1,26 @@
 // import React from 'react';
-import TopNav from '../TopNav';
-import LeftNav from '../LeftNav';
+import TopNav from '../nav/TopNav';
+import LeftNav from '../nav/LeftNav';
+import LeftNavCollaps from '../nav/LeftNavCollaps';
+
+const navMap = {
+  'top': (menuData) => ([
+    TopNav, menuData,
+    () => null, []
+  ]),
+  'left': (menuData) => ([
+    () => null, [],
+    LeftNav, menuData,
+  ]),
+  'LeftNavCollaps': (menuData) => ([
+    () => null, [],
+    LeftNavCollaps, menuData,
+  ]),
+};
 
 function selectNavStyle(type, menuData, path, switchLeftNav) {
-  if (type === 'top') {
-    return [
-      TopNav, menuData,
-      () => null, []
-    ];
-  }
-  if (type === 'left') {
-    return [
-      () => null, [],
-      LeftNav, menuData
-    ];
+  if (navMap[type]) {
+    return navMap[type](menuData);
   }
 
   let fPath;

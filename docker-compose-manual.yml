@@ -58,3 +58,10 @@ services:
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/sql_mode.cnf:/etc/mysql/mysql.conf.d/sql_mode.cnf
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: swagger
+    privileged: true
+    volumes:
+      - ./swagger/app/swagger.json:/app/swagger.json

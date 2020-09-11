@@ -1,0 +1,67 @@
+@import '../../../../theme.less';
+
+.LeftNav {
+  background-color: @ZEle-menu-left-bgColor;
+  display         : flex;
+  flex-wrap       : wrap;
+
+  svg {
+    fill  : @ZEle-menu-icon;
+    width : 20px;
+    height: 20px;
+  }
+
+  .nav-item+.nav-item {
+    margin-top: 4px;
+  }
+
+  .nav-item,
+  .nav-item-container {
+    width      : 100%;
+    user-select: none;
+    transition : all .3s;
+    overflow   : hidden;
+  }
+
+  .nav-item.selected .nav-title,
+  .nav-item:hover .nav-title {
+    background-color: @ZEle-menu-left-active-bgColor;
+
+    .nav-name {
+      color: @ZEle-menu-left-active-fontColor;
+    }
+  }
+
+  .nav-item-container {
+    .nav-item {
+      padding-left: 1em;
+    }
+  }
+
+  .nav-title {
+    display    : flex;
+    align-items: center;
+    padding    : 12px 8px;
+    transition : all .3s;
+
+    &:hover {
+      background: @ZEle-menu-left-active-bgColor;
+    }
+
+    .nav-icon {
+      display        : flex;
+      align-items    : center;
+      justify-content: center;
+
+      div {
+        display     : flex;
+        margin-right: 6px;
+      }
+    }
+
+    .nav-name {
+      color    : @ZEle-menu-left-fontColor;
+      font-size: @ZEle-menu-left-fontSize;
+    }
+  }
+}

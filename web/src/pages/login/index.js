@@ -38,7 +38,7 @@ function LoginForm(props) {
 
   function handleSubmit(values) {
     setLoading(true);
-    post('/api/oauth/login', values, {
+    post('/api/sys/oauth/login', values, {
       message: null,
     }).then((data) => {
       saveToken({

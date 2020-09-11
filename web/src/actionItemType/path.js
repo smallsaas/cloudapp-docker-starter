@@ -18,11 +18,11 @@ function ActionOnPath(props) {
     });
   }
 
-  return <div>
+  return <>
     <Button onClick={handleClick} type="primary">
       {title}
     </Button>
-  </div>
+  </>
 }
 
 export default withRouter(ActionOnPath);

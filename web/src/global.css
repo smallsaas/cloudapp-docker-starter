@@ -35,16 +35,3 @@ header.ant-layout-header {
 .ZEleA-Breadcrumb-margin {
   margin: 12px 0;
 }
-
-.ant-select {
-  max-width: 6em;
-}
-
-.ant-modal-body .ant-select {
-  max-width: 350px;
-}
-
-.ant-form-item-control input,
-.ant-input-password {
-  max-width: 350px;
-}

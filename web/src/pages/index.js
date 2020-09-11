@@ -6,6 +6,7 @@ export default function () {
   if (win.ZEle.indexPage) {
     history.push(win.ZEle.indexPage);
   }
+
   return (
     <div>
       首页
