@@ -63,4 +63,4 @@ rm -f ${mod}.tar
 
 echo 'replace router.json...'
 
-zero-json router create ${routerName} ${routerPath} -i ../config/routerr.config.js -d
+zero-json router create ${routerName} ${routerPath} -i ../config/router.config.js -d
