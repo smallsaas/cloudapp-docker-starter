@@ -1,7 +1,5 @@
 # Crudless-Docker-SandBox
 
-/aur/last-modified/:packageName
-
 ## 1. 相关文档
 
 - [使用说明](https://github.com/smallsaas/crudless-docker-sandbox/blob/master/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md)
