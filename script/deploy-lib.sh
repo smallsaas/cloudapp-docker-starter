@@ -54,7 +54,7 @@ elif [[ "$option" =~ $list ]]; then
 elif [[ "$option" =~ $crudless ]]; then
 	java -jar ../cg-cli.jar $2 $3 $4
 	cd $2
-	mvn -Dmaven.repo.remote=http://120.79.49.72:8081/repository/internal package
+	mvn package
 	mv ./target/*-1.0-SNAPSHOT.jar ../
 	cd ..	
 	if [[ $(pwd) =~ 'lib' ]]; then

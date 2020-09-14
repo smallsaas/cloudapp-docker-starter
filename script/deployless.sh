@@ -36,7 +36,7 @@ ssh_copy_id() {
    exit
 }
 
-if [ ! $jar ]; then
+usage(){
    echo 'Usage: deployless <jarFile>'
    echo '  e.g. deployless test.jar'
    echo '  -d  --delete <jarName> 删除资源包'
@@ -44,6 +44,10 @@ if [ ! $jar ]; then
    echo '  -l  --list   显示云端已装配资源包列表'
    echo '  -s  --ssh    保存本地ssh的公共密钥至云端'
    exit
+}
+
+if [ ! $jar ]; then
+   usage
 fi
 
 if [[ "$option" =~ $force || "$option" =~ $delete || "$option" =~ $list || "$option" =~ $ssh ]]; then
