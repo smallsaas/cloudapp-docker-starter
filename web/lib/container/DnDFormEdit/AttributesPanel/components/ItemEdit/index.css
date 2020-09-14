@@ -1,0 +1,22 @@
+.ant-card.ZEleA-DnDFormEdit-ItemEdit-editing {
+  border-color: #1890ff;
+}
+
+.ZEleA-DnDFormEdit-ItemEdit-title {
+  user-select: none;
+  cursor     : pointer;
+}
+
+.ZEleA-DnDFormEdit-ItemEdit-icon {
+  user-select : none;
+  padding-left: 8px;
+  transition  : all .2s;
+}
+
+.ZEleA-DnDFormEdit-ItemEdit-icon-delete:hover {
+  color: #f5222d;
+}
+
+.ZEleA-DnDFormEdit-ItemEdit-icon-edit:hover {
+  color: #1890ff;
+}

@@ -16,7 +16,7 @@ export default function Details(props) {
     col = 2,
     fields = [],
     map = {},
-    goBack = true
+    goBack = false,
   } = props;
 
   const [details, loading] = useDetails(namespace, API);
@@ -31,11 +31,11 @@ export default function Details(props) {
       {fields.map((option, i) => {
         const { label } = option;
 
-        return <div key={i} span={option.span}>
+        return <div key={i} span={option.span} className={styles.item}>
           {label ? (
             <div className={styles.labelTitle}>
-              {label}:
-              </div>
+              {label} :
+            </div>
           ) : null}
           {renderPlain(details, option, map)}
         </div>
@@ -53,6 +53,7 @@ function renderPlain(details, option, map) {
   }
 
   return <Render n="plain"
+    className={styles.valueContainer}
     options={options}
     value={_.get(details, field)}
   />

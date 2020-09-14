@@ -1,0 +1,114 @@
+.ZEleA-table-operation {
+  height     : 40px;
+  line-height: 40px;
+}
+
+.ZEleA-table-selected {
+  background: #e6f7ff;
+}
+
+.ZEleA-table-odd {
+  background: #f8f8f8;
+}
+
+.ZEleA-table-action {
+  display: flex;
+}
+
+.ZEleA-table-action-Outside {
+  flex      : 1;
+  text-align: right;
+}
+
+.ZEleA-table-action-Outside>span {
+  margin-right: 12px;
+}
+
+.ZEleA-table-action-empty {
+  color: #e8e8e8;
+}
+
+.ZEleA-table-action-Outside-normal {
+  vertical-align: middle;
+  cursor        : pointer;
+  color         : #1890ff;
+}
+
+.ZEleA-table-action .anticon-ellipsis {
+  cursor: pointer;
+}
+
+.ZEleA-table-action-menuItem {
+  min-width: 100px;
+}
+
+.ZEleA-table-action-menuItem i {
+  margin-right: 8px;
+}
+
+.ZEleA-ReportList table {
+  border: 1px solid #ededed;
+}
+
+.ZEleA-ReportList td {
+  padding      : 4px !important;
+  border-bottom: none !important;
+}
+
+.ZEleA-ReportList .ant-table-thead>tr>th {
+  font-size       : 12px;
+  color           : #606060;
+  background-color: #ededed;
+  padding         : 8px !important;
+  border          : none;
+}
+
+.ZEleA-ListFieldsEdit-settingIcon {
+  cursor       : pointer;
+  padding-right: 6px;
+}
+
+.ZEleA-ListFieldsEdit-divider {
+  position     : absolute;
+  bottom       : 0;
+  width        : 100%;
+  border-top   : 1px solid #e8e8e8;
+  padding      : 10px 16px;
+  text-align   : right;
+  left         : 0;
+  background   : #fff;
+  border-radius: 0 0 4px 4px;
+}
+
+.ZEleA-ListFieldsEdit-divider>button {
+  margin-left: 4px;
+}
+
+.ZEleA-ListFieldsEdit-FieldItem {
+  margin-bottom: .5em;
+  padding      : 8px;
+  transition   : all .2s;
+}
+
+.ZEleA-ListFieldsEdit-FieldItem:hover {
+  background: #188fff2f;
+}
+
+.ZEleA-ListFieldsEdit-FieldItem-label {
+  cursor     : pointer;
+  margin-left: .5em;
+}
+
+.ZEleA-ListFieldsEdit-FieldItem-icon {
+  cursor: pointer;
+  margin: 0 .5em;
+}
+
+.ZEleA-table-action-Sort {
+  text-align: right;
+}
+
+.ZEleA-table-action-Sort>i {
+  margin-right: 8px;
+  cursor      : pointer;
+}

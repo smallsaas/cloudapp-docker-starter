@@ -1,0 +1,9 @@
+.ant-btn.ZEle-action-button {
+  color       : #1890ff;
+  border-color: #1890ff;
+}
+
+.ant-btn.ZEle-action-button:hover {
+  color       : #69c0ff;
+  border-color: #69c0ff;
+}

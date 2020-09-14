@@ -1,0 +1,52 @@
+.ZEleA-Layout-Content {
+  background   : #fff;
+  box-shadow   : 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding      : 16px;
+  min-height   : 100%;
+  margin-bottom: 16px;
+}
+
+.ZEleA-Layout-Alone {
+  width : inherit;
+  height: inherit;
+}
+
+.ZEleA-Layout-Items {
+  display      : flex;
+  flex-wrap    : wrap;
+  margin-bottom: 8px;
+}
+
+.ZEleA-Layout-Items>* {
+  margin: 4px 8px;
+}
+
+.ZEleA-Layout-BaseTitle {
+  color      : rgba(0, 0, 0, 0.85);
+  background : white;
+  box-shadow : 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding    : 0.5em;
+  font-weight: 500;
+  font-size  : 1.5em;
+}
+
+.ZEleA-Layout-Row {
+  /* margin-bottom: 8px; */
+  display      : flex;
+  align-items  : center;
+}
+
+.ZEleA-Layout-Row>* {
+  margin-right: 4px;
+}
+
+.ZEleA-Layout-SearchLayout {
+  margin        : 8px 0;
+  padding       : 8px 0;
+  padding-bottom: 0;
+  background    : #ebecec;
+}
+
+.ZEleA-Layout-SearchLayout .ZEleA-Form-horizontal>.ant-row {
+  margin-bottom: 0;
+}

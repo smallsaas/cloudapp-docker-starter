@@ -7,12 +7,12 @@ force='^-f$'
 delete='^-d$'
 list='^-l$'
 ssh='^-s$'
+replace='^-r$'
 #### split from target  below ###
 app_path=${target##*:}
 ssh_host=${target%%:*}
 ####
 
-## deploy lib
 deploy_lib() {
    echo scp $(readlink -f $jar) ${target}/lib
    scp $(readlink -f $jar) ${target}/lib
@@ -36,13 +36,14 @@ ssh_copy_id() {
    exit
 }
 
-usage(){
+usage() {
    echo 'Usage: deployless <jarFile>'
    echo '  e.g. deployless test.jar'
    echo '  -d  --delete <jarName> 删除资源包'
    echo '  -f  --force  <jarFilePath> 强制装配资源包'
    echo '  -l  --list   显示云端已装配资源包列表'
    echo '  -s  --ssh    保存本地ssh的公共密钥至云端'
+   echo '  -r  --replace <standaloneJarFilePath> 全量替换standalone.jar（app.jar）包'
    exit
 }
 
@@ -50,7 +51,7 @@ if [ ! $jar ]; then
    usage
 fi
 
-if [[ "$option" =~ $force || "$option" =~ $delete || "$option" =~ $list || "$option" =~ $ssh ]]; then
+if [[ "$option" =~ '^-' ]]; then
    jar=$2
    if [[ "$option" =~ $delete ]]; then
       echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh $option $jar\"
@@ -62,15 +63,19 @@ if [[ "$option" =~ $force || "$option" =~ $delete || "$option" =~ $list || "$opt
       exit
    elif [[ "$option" =~ $ssh ]]; then
       ssh_copy_id
+   elif [[ "$option" =~ $replace ]]; then
+      echo scp $(readlink -f $jar) ${target}/lib
+      scp $(readlink -f $jar) ${target}/lib
+      echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh $1 $2\"
+      ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh $1 $2"
+      exit
    fi
 fi
 
-if [ ! -f $jar ]; then
-   echo File $jar not exist
+if [ ! -f $(readlink -f $jar) ]; then
+   usage
    exit
-fi
-
-if [[ ! $jar =~ .jar$ ]]; then
+elif [[ ! $jar =~ .jar$ ]]; then
    echo $jar isn\'t a jar file.
    exit
 fi

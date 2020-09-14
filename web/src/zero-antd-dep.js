@@ -68,6 +68,7 @@ import AITSet_childrenModalAdd from '@/../zero-antd-dep/actionItemType/ChildrenM
 import AITSet_importExcel from '@/../zero-antd-dep/actionItemType/ImportExcel';
 import AITSet_exportExcel from '@/../zero-antd-dep/actionItemType/ExportExcel';
 import AITSet_tableCheckbox from '@/../zero-antd-dep/actionItemType/TableCheckbox';
+import VTSet_index from '@/../zero-antd-dep/valueType/index';
 import VTSet_plain from '@/../zero-antd-dep/valueType/plain';
 import VTSet_map from '@/../zero-antd-dep/valueType/map';
 import VTSet_image from '@/../zero-antd-dep/valueType/image';
@@ -75,6 +76,7 @@ import VTSet_tag from '@/../zero-antd-dep/valueType/tag';
 import VTSet_currency from '@/../zero-antd-dep/valueType/currency';
 import VTSet_percentage from '@/../zero-antd-dep/valueType/percentage';
 import VTSet_ellipsis from '@/../zero-antd-dep/valueType/ellipsis';
+import VTSet_complex from '@/../zero-antd-dep/valueType/complex';
 import VTSet_inputNumber from '@/../zero-antd-dep/valueType/inputNumber';
 import VTSet_inputText from '@/../zero-antd-dep/valueType/inputText';
 import VTSet_inputSelect from '@/../zero-antd-dep/valueType/inputSelect';
@@ -163,6 +165,7 @@ AITSet({
 });
 
 VTSet({
+'index': VTSet_index,
 'plain': VTSet_plain,
 'map': VTSet_map,
 'image': VTSet_image,
@@ -170,6 +173,7 @@ VTSet({
 'currency': VTSet_currency,
 'percentage': VTSet_percentage,
 'ellipsis': VTSet_ellipsis,
+'complex': VTSet_complex,
 'input-number': VTSet_inputNumber,
 'input-text': VTSet_inputText,
 'input-select': VTSet_inputSelect,

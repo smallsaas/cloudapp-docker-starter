@@ -1,0 +1,61 @@
+.ZEleA-PCDM-container {
+  padding: 4px;
+}
+
+.ZEleA-PCDM-title {
+  background   : #f5f7fa;
+  padding      : 8px 16px;
+  border       : 1px solid #eee;
+  border-radius: 4px 4px 0 0;
+  font-size    : 16px;
+  color        : #000;
+  display      : flex;
+  align-items  : center;
+}
+
+.ZEleA-PCDM-title>label {
+  margin-right: 4px;
+}
+
+.ZEleA-PCDM-title .title {
+  flex: 1;
+}
+
+.ZEleA-PCDM-title .search {
+  width       : 112px;
+  margin-right: 4px;
+}
+
+.ZEleA-PCDM-title span {
+  color    : #888;
+  font-size: 12px;
+}
+
+.ZEleA-PCDM-body {
+  border    : 1px solid #eee;
+  border-top: unset;
+  height    : 200px;
+  overflow  : hidden;
+  overflow-y: auto;
+}
+
+.ZEleA-PCDM-body .ant-checkbox-group .ant-checkbox-group-item {
+  padding: 8px 4px;
+  display: block;
+}
+
+.ZEleA-PCDM-footer {
+  padding   : 8px;
+  text-align: center;
+  border    : 1px solid #eee;
+  border-top: unset;
+}
+
+.ZEleA-Form-item .ZEleA-Form-item-element .ZEleA-NumberRange input,
+.ZEleA-Form-item .ZEleA-Form-item-element .ZEleA-NumberRange .ant-input-number {
+  width: 100%;
+}
+
+.ZEleA-NumberRange>span {
+  padding: 0 4px;
+}

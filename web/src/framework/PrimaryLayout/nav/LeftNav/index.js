@@ -20,8 +20,8 @@ export default function LeftNav({ path, navType, menuData }) {
 
 
   useEffect(_ => {
-    if (menuData && menuData.length && navType === 'both' && selectedKeys.length <= 1) {
-      if (menuData[0].path !== path) {
+    if (menuData && menuData.length && navType === 'both' && selectedKeys.length) {
+      if (menuData[0].path !== path && path.split('/').length <= 2) {
         history.push({
           pathname: menuData[0].path
         })

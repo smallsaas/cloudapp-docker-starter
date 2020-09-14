@@ -1,0 +1,35 @@
+.ZEleA-ImageView-container {
+  overflow: hidden;
+  cursor  : pointer;
+}
+
+.ZEleA-ImageView-container.border {
+  border    : 1px solid transparent;
+  margin    : 2px;
+  transition: all .2s;
+}
+
+.ZEleA-ImageView-container.border:hover {
+  border-color: #2a5e90;
+}
+
+.ZEleA-ImageView-container.circle {
+  border-radius: 50%;
+}
+
+.ZEleA-ImageView-container img {
+  max-height: 100%;
+  transform : scale(1);
+  transition: all .2s;
+}
+
+.ZEleA-ImageView-container:hover img {
+  transform: scale(1.2);
+}
+
+.ZEleA-ImageView-container .bgConter {
+  width              : 100%;
+  height             : 100%;
+  background-position: center;
+  background-repeat  : no-repeat;
+}

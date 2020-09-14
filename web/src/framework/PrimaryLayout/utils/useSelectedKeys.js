@@ -6,7 +6,7 @@ export default function useSelectedKeys(path) {
   useEffect(_ => {
     const rst = [path];
     const pathSplit = path.split('/');
-    if (pathSplit.length > 2) {
+    while (Array.isArray(pathSplit) && pathSplit.length > 2) {
       pathSplit.pop();
       rst.push(pathSplit.join('/'));
     }
