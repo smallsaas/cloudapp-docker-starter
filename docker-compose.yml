@@ -1,7 +1,5 @@
 version: "3"
 services:
-  # docker-compose -f docker-compose.yml up --detach --build  ## for recreating th
-
   api:
     container_name: ${app}-api
     image: 'zelejs/allin-web:sandbox'
@@ -34,11 +32,11 @@ services:
     image: 'daocloud.io/library/nginx:latest'
     ports:
       - 80:80
-      #- 443:443
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/logs:/var/log/nginx
-      - ./nginx/cert:/cert
+      - ./nginx/images:/usr/share/nginx/html/images
+      - ./nginx/attachments:/usr/share/nginx/html/attachments
     environment:
       TZ: "Asia/Shanghai"
     privileged: true
