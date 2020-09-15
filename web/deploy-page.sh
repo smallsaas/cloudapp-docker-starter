@@ -6,7 +6,13 @@ option=$1
 crudless='^-c'
 delete='^-d$'
 list='^-l$'
+update='^-u$'
 pages='./src/pages'
+
+if [[ "$option" =~ $update ]]; then
+	shift
+	npm update $*
+fi
 
 cd $pages
 if [[ "$option" =~ $delete ]]; then

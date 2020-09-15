@@ -1,13 +1,6 @@
 #!/usr/bin/bash
 ## host ##
 target='root@server_ip:/root/dev/web'
-mod=$1
-routerName=$2
-routerPath=$3
-crudless='^-c$'
-delete='^-d$'
-list='^-l$'
-ssh='^-s$'
 #### split from target  below ###
 app_path=${target##*:}
 ssh_host=${target%%:*}
@@ -15,6 +8,12 @@ ssh_host=${target%%:*}
 
 ## deploy page
 deploy_page() {
+   mod=$1
+   routerName=$2
+   routerPath=$3
+   if [ ! -f $(readlink -f $mod)/index.js ]; then
+      usage
+   fi
    ## means page, check dist
    if [ ! -d $(readlink -f $mod)/config ]; then
       echo you try to deploy page, but config not exists
@@ -31,9 +30,32 @@ deploy_page() {
 
    echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh\"
    ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh $mod $routerName $routerPath"
+   exit
+}
+
+delete_page() {
+   if [[ ! $mod || ! $routerName || ! $routerPath ]]; then
+   usage
+   fi
+   if [ ! -d $(readlink -f $mod) ]; then
+      echo page $mod not exists
+      exit
+   fi
+   echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
+   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh $*"
+   exit
+}
+
+list_page() {
+   echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
+   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh $*"
+   exit
 }
 
 deploy_yml() {
+   if [ $# -lt 5 ]; then
+      usage
+   fi
    yml=$2
    apiName=$3
    pageName=$4
@@ -68,45 +90,37 @@ ssh_copy_id() {
    exit
 }
 
+update() {
+   echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
+   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh $*"
+   exit
+}
+
 usage() {
-   echo 'Usage: bash deployless_pages.sh [option] <parameter>'
+   echo 'Usage: bash deployless_pages.sh [command] <parameter>'
    echo '  e.g. bash deployless_pages.sh web/src/pages/page_test 菜单名称 page_test'
    echo
    echo '  -c  --crudless <yamlFilePath> <apiName> <pageName> <routerName> 快速生成代码并部署'
    echo '  -d  --delete <pageName> 删除页面'
    echo '  -l  --list   页面列表'
    echo '  -s  --ssh    保存本地ssh的公共密钥至云端'
+   echo '  -u  --update <module_name> 更新sandbox web资源'
    exit
 }
 
-if [[ "${mod}" =~ $delete || "${mod}" =~ $list ]]; then
-   echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh $*"
-   exit
-fi
-
-if [[ "${mod}" =~ $ssh ]]; then
-   ssh_copy_id
-elif [[ "${mod}" =~ $crudless ]]; then
-   if [ $# -lt 5 ]; then
-      usage
-   fi
-   deploy_yml "$@"
-fi
-
-if [[ ! $mod || ! $routerName || ! $routerPath ]]; then
+if [ $# -eq 0 ]; then
    usage
 fi
 
-if [ ! -d $(readlink -f $mod) ]; then
-   echo page $mod not exists
-   exit
-fi
-
-## main  ##
-if [ -f $(readlink -f $mod)/index.js ]; then
-   deploy_page
-fi
-
-# done
-echo Done
+while [ -n "$1" ]
+do
+case $1 in
+   -c) deploy_yml "$@";;
+   -d) delete_page "$@";;
+   -l) list_lib;;
+   -s) ssh_copy_id;;
+   -u) update "$@";;
+   *) deploy_page "$@";;
+esac
+shift
+done

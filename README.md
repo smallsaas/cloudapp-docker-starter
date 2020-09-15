@@ -7,6 +7,20 @@
 
 ## 2. 更新日志
 
+### 【2020-09-15】
+
+- `deployless.sh`脚本新增`  -m  --maven  <groupId:artifactId:Version>`选项用于**从Maven Remote Repository拉取资源包并装配**
+- `Nginx`模块中新增`images`与`attachments`文件夹用于上传配置
+- `deployless_pages.sh`脚本新增`-u  --update <module_name>`选项用于**更新sandbox中web资源**
+
+### 【2020-09-14】
+
+- `deployless.sh`脚本新增`-r  --replace <standaloneJarFilePath>`选项用于**全量替换standalone.jar（app.jar）包**
+- `api`模块所使用基础包`pom.xml`新增`hutool-core-5.1.0.jar、lombok-1.18.4.jar`依赖
+- `api`模块所使用的 `zelejs/allin-web:sandbox`镜像同步更新基础包`app.jar`  （需重拉取镜像并重启该`api`模块）
+- `web`模块样式基础源码替换为`zero-json 2.7.9`生成的源码
+- 同步更新`zelejs/node:sandbox`镜像（需重新拉取镜像并重启`web`模块）
+
 ### 【2020-09-13】
 
 - 新增`swagger`组件
