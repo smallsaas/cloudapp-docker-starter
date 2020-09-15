@@ -63,10 +63,9 @@ elif [[ "$option" =~ $crudless ]]; then
 	if [[ $(pwd) =~ 'lib' ]]; then
 		rm -rf $(ls | egrep -v '*.jar')
 	fi
-elif [[ "$option" =~ $replace ]] && [ -f ${2##*/} ]; then
+elif [[ "$option" =~ $replace ]] && [ -f $jar ]; then
 	mvn dependency:get -Dartifact=org.flywaydb:flyway-core:5.2.4 -Ddest=./
-	echo cp -r ./jar $fixapp
-	cp -r ./$jar $fixapp
+	mv ./$jar $fixapp
 	option='-f'
 fi
 

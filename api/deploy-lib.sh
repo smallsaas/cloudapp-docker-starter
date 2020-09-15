@@ -13,6 +13,7 @@ crudless='^-c$'
 delete='^-d$'
 force='^-f$'
 list='^-l$'
+replace='^-r$'
 standalone_jar=${DL_STANDALONE}
 app='app.jar'
 keep=2
@@ -39,9 +40,11 @@ fi
 ## iterate lib
 cd lib
 
+jar=$2
+jar=${jar##*/}
 ## delete
-if [[ "$option" =~ $delete ]] && [ $2 ]; then
-	result=$(zip -d $fixapp BOOT-INF/lib/$2 | sed -n '$p')
+if [[ "$option" =~ $delete ]] && [ $jar ]; then
+	result=$(zip -d $fixapp BOOT-INF/lib/$jar | sed -n '$p')
 	if [[ ! $result =~ "error" ]]; then
 		mv $fixapp ../$app
 	else
@@ -52,14 +55,18 @@ elif [[ "$option" =~ $list ]]; then
 	java -jar ../dependency.jar -p $(readlink -f $fixapp)
 	exit
 elif [[ "$option" =~ $crudless ]]; then
-	java -jar ../cg-cli.jar $2 $3 $4
-	cd $2
-	mvn -Dmaven.repo.remote=http://120.79.49.72:8081/repository/internal package
+	java -jar ../cg-cli.jar $jar $3 $4
+	cd jar
+	mvn package
 	mv ./target/*-1.0-SNAPSHOT.jar ../
-	cd ..	
+	cd ..
 	if [[ $(pwd) =~ 'lib' ]]; then
-		rm -rf `ls | egrep -v '*.jar'`
+		rm -rf $(ls | egrep -v '*.jar')
 	fi
+elif [[ "$option" =~ $replace ]] && [ -f $jar ]; then
+	mvn dependency:get -Dartifact=org.flywaydb:flyway-core:5.2.4 -Ddest=./
+	mv ./$jar $fixapp
+	option='-f'
 fi
 
 num=0
