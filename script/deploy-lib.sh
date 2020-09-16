@@ -65,9 +65,14 @@ elif [[ "$option" =~ $crudless ]]; then
 		rm -rf $(ls | egrep -v '*.jar')
 	fi
 elif [[ "$option" =~ $replace ]] && [ -f $jar ]; then
-	mvn dependency:get -Dartifact=org.flywaydb:flyway-core:5.2.4 -Ddest=./
-	mv ./$jar $fixapp
-	option='-f'
+	java -jar ../dependency.jar -p $(readlink -f $jar) | grep 'flyway'&> /dev/null
+	if [ $? -eq 0 ]; then
+		mv ./$jar $fixapp
+		option='-f'
+	else
+		echo 当前待替换基础包${jar}中缺失flyway-core的关键依赖，导致无法装配，请处理后重试，本次操作失败。
+		exit
+	fi
 elif [[ "$option" =~ $maven ]]; then
 	mvn dependency:get -Dartifact=$2 -Ddest=./
 	option='-f'

@@ -9,6 +9,14 @@ ssh_host=${target%%:*}
 ####
 
 replace_standalone(){
+   jar=$2
+   if [ ! -f $(readlink -f $jar) ]; then
+      echo File not found.
+      exit
+   elif [[ ! $jar =~ .jar$ ]]; then
+      echo $jar isn\'t a jar file.
+      exit
+   fi
    echo scp $(readlink -f $jar) ${target}/lib
    scp $(readlink -f $jar) ${target}/lib
    echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh $1 $2\"
