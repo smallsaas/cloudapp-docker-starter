@@ -12,6 +12,8 @@ pages='./src/pages'
 if [[ "$option" =~ $update ]]; then
 	shift
 	npm update $*
+	node init
+	exit
 fi
 
 cd $pages

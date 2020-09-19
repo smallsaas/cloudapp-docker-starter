@@ -16,8 +16,8 @@ list='^-l$'
 maven='^-m$'
 replace='^-r$'
 standalone_jar=${DL_STANDALONE}
+SQL='jdbc:mysql://mysqlserver:3306/test?user=root&password=root&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true'
 app='app.jar'
-keep=2
 webapp='/webapps'
 
 # 切换至工作目录下
@@ -65,14 +65,8 @@ elif [[ "$option" =~ $crudless ]]; then
 		rm -rf $(ls | egrep -v '*.jar')
 	fi
 elif [[ "$option" =~ $replace ]] && [ -f $jar ]; then
-	java -jar ../dependency.jar -p $(readlink -f $jar) | grep 'flyway'&> /dev/null
-	if [ $? -eq 0 ]; then
-		mv ./$jar $fixapp
-		option='-f'
-	else
-		echo 当前待替换基础包${jar}中缺失flyway-core的关键依赖，导致无法装配，请处理后重试，本次操作失败。
-		exit
-	fi
+	mv ./$jar $fixapp
+	option='-f'
 elif [[ "$option" =~ $maven ]]; then
 	mvn dependency:get -Dartifact=$2 -Ddest=./
 	option='-f'
@@ -108,27 +102,34 @@ if [ $num -eq 0 ]; then
 	exit 1
 fi
 
-## prepare done
 ## start deploy lib
 ## 判断是否存在BOOT-INF文件夹是否存在
 if [ -d BOOT-INF ]; then
+	java -jar ../dependency.jar -p $(readlink -f $fixapp) | grep 'flyway'&> /dev/null
+	result=$?
 	for lib in $(ls $BOOT_INF_LIB); do
-		## 搜索lib资源包中是否存在sql文件
-		sql=$(jar tf ${BOOT_INF_LIB}${lib} | grep sql)
-		## 判断lib包是否存在sql文件
-		if [ "$sql" ]; then
-			## 提取sql资源包
-			jar xf ${BOOT_INF_LIB}${lib} sql
-			## 更改sql文件夹名称 为 db/migration方便后续注入
-			mkdir -p $SQL_PATH
-			mv sql/* $SQL_PATH
-			## 遍历重命名SQL文件以便支持migration
-			for sql in $(ls $SQL_PATH); do
-				echo rename $sql to R__$sql
-				mv $SQL_PATH/$sql $SQL_PATH/R__$sql
-			done
-			## 将SQL注入至db/migration
-			jar 0uf $fixapp $SQL_PATH
+		if [ $result -eq 0 ]; then
+		    sql=$(jar tf ${BOOT_INF_LIB}${lib} | grep sql)
+		    if [ "$sql" ]; then
+				## 提取sql资源包
+				jar xf ${BOOT_INF_LIB}${lib} sql
+				## 更改sql文件夹名称 为 db/migration方便后续注入
+				mkdir -p $SQL_PATH
+				mv sql/* $SQL_PATH
+				## 遍历重命名SQL文件以便支持migration
+				for sql in $(ls $SQL_PATH); do
+					jar tf $fixapp | grep R__$sql &> /dev/null
+					result=$?
+					success=$(java -jar ../mysql-test.jar $SQL "select success from flyway_schema_history where script='R__${sql}'")
+					if [ ! $result -eq 0 ] || [ ! $success -eq 1 ]; then
+						$(java -jar ../mysql-test.jar $SQL "delete from flyway_schema_history where success='0'")
+						echo rename $sql to R__$sql
+						mv $SQL_PATH/$sql $SQL_PATH/R__$sql
+					fi
+				done
+				## 将SQL注入至db/migration
+				jar 0uf $fixapp $SQL_PATH
+			fi
 		fi
 		## 注入lib资源包
 		jar 0uf $fixapp ${BOOT_INF_LIB}$lib
@@ -137,10 +138,8 @@ fi
 
 ## working dir
 cd ..
-
 #deploy
 mv lib/$fixapp $app
-
 #cleanup
 rm -rf lib/*
 

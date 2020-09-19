@@ -38,6 +38,13 @@ else
   echo $webapps/api/docker-deploy-lib.sh not found!
 fi
 
+if [ -f $webapps/api/deploy-lib.sh ]; then
+  sed -i "s/jdbc:mysql:\/\/mysqlserver:3306\/[a-zA-Z\.]*?/jdbc:mysql:\/\/${app}-mysql:3306\/$database?/" $webapps/api/deploy-lib.sh
+  echo Initialize deploy-lib.sh successfully.
+else
+  echo $webapps/api/deploy-lib.sh not found!
+fi
+
 if [ -f $webapps/web/docker-deploy-page.sh ]; then
   sed -i "s/docker_tool=[[:space:]]*\${[a-zA-Z\.]*}-/docker_tool=${app}-/" $webapps/web/docker-deploy-page.sh
   echo Initialize docker-deploy-page.sh successfully.
