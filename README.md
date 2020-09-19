@@ -15,6 +15,7 @@
   - 当云端`api`模块中基础包 *（`app.jar`）* 包含时，作如下判断
     - 当且仅当基础包中`db/migratation`目录下**不存在该SQL文件**或flyway版本记录中**存在SQL文件值存在异常**（即`flyway_schema_history`表中**对应值success为0**），则进行SQL文件装配
     - 其他情况不做SQL文件装配
+- `api`模块所使用的 `zelejs/allin-web:sandbox`镜像同步加入工具包`mysql-test.jar`（需重拉取镜像并重启该`api`模块）
 
 ### 【2020-09-15】
 
