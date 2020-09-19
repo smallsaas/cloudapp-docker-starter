@@ -9,7 +9,7 @@
 
 ### 【2020-09-19】
 
-- 修改`deployless.sh`中的`-r --replace <standaloneJarFilePath>`逻辑处理方式*（原先为判断是否包含flyway依赖，不包含则自动加入flyway依赖用于数据库版本管理，**现改为不作任何判断，进行全量替换**）*
+- 修改`deployless.sh`中的`-r --replace <standaloneJarFilePath>`逻辑处理方式 *（原先为判断是否包含flyway依赖，不包含则自动加入flyway依赖用于数据库版本管理，**现改为不作任何判断，进行全量替换**）*
 - 修改`deploylessl.sh`的装配处理逻辑为如下
   - 当云端`api`模块中基础包 *（`app.jar`）* 不包含`flyway`时，默认忽略SQL文件直接装配
   - 当云端`api`模块中基础包 *（`app.jar`）* 包含时，作如下判断
