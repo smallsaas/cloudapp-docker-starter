@@ -7,6 +7,15 @@
 
 ## 2. 更新日志
 
+### 【2020-09-19】
+
+- 修改`deployless.sh`中的`-r --replace <standaloneJarFilePath>`逻辑处理方式*（原先为判断是否包含flyway依赖，不包含则自动加入flyway依赖用于数据库版本管理，**现改为不作任何判断，进行全量替换**）*
+- 修改`deploylessl.sh`的装配处理逻辑为如下
+  - 当云端`api`模块中基础包 *（`app.jar`）* 不包含`flyway`时，默认忽略SQL文件直接装配
+  - 当云端`api`模块中基础包 *（`app.jar`）* 包含时，作如下判断
+    - 当且仅当基础包中`db/migratation`目录下**不存在该SQL文件**或flyway版本记录中**存在SQL文件值存在异常**（即`flyway_schema_history`表中**对应值success为0**），则进行SQL文件装配
+    - 其他情况不做SQL文件装配
+
 ### 【2020-09-15】
 
 - `deployless.sh`脚本新增`  -m  --maven  <groupId:artifactId:Version>`选项用于**从Maven Remote Repository拉取资源包并装配**
