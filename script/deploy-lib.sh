@@ -121,7 +121,7 @@ if [ -d BOOT-INF ]; then
 					jar tf $fixapp | grep R__$sql &> /dev/null
 					result=$?
 					success=$(java -jar ../mysql-test.jar $SQL "select success from flyway_schema_history where script='R__${sql}'")
-					if [ ! $result -eq 0 ] || [ ! $success -eq 1 ]; then
+					if [[ ! $result -eq 0 ]] || [[ ! $success -eq 1 ]]; then
 						$(java -jar ../mysql-test.jar $SQL "delete from flyway_schema_history where success='0'")
 						echo rename $sql to R__$sql
 						mv $SQL_PATH/$sql $SQL_PATH/R__$sql
