@@ -65,8 +65,10 @@ elif [[ "$option" =~ $crudless ]]; then
 		rm -rf $(ls | egrep -v '*.jar')
 	fi
 elif [[ "$option" =~ $replace ]] && [ -f $jar ]; then
-	mv ./$jar $fixapp
-	option='-f'
+	cd ..
+	mv lib/$jar $app
+	rm -rf lib/*
+	exit
 elif [[ "$option" =~ $maven ]]; then
 	mvn dependency:get -Dartifact=$2 -Ddest=./
 	option='-f'

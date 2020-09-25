@@ -12,7 +12,7 @@ services:
       #GREENFIELD: 'run'
     privileged: true
     depends_on:
-      - "mysqlserver"
+      - "mysql"
 
   web:
     container_name: ${app}-web
@@ -44,7 +44,7 @@ services:
       - "api"
       - "web"
 
-  mysqlserver:
+  mysql:
     container_name: ${app}-mysql
     image: 'daocloud.io/library/mysql:5.7'
     restart: always
@@ -52,7 +52,6 @@ services:
       TZ: "Asia/Shanghai"
       MYSQL_DATABASE: database
       MYSQL_ROOT_PASSWORD: root
-    privileged: true
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/sql_mode.cnf:/etc/mysql/mysql.conf.d/sql_mode.cnf
