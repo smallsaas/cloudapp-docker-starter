@@ -7,6 +7,15 @@
 
 ## 2. 更新日志
 
+### 【2020-09-28】
+
+- 新增`deploy-db.sh、docker-deploy-db.sh`文件用于管理SandBox中的数据表
+- 新增`mysql/tmp`文件夹用于存放导入数据表存放文件
+- `deployless.sh / deployless-pages.sh`脚本文件功能中新增`-v --version`选项用于查看版本信息
+- `deployless.sh`脚本文件功能中新增`-i --import`选项用于远程导入数据表
+- `deployless.sh`脚本文件功能中新增`-e --export`选项用于远程导出数据表至本地
+- `deployless.sh`脚本文件功能中新增`-lt --list-table`选项用于远程查看数据列表
+
 ### 【2020-09-19】
 
 - 修改`deployless.sh`中的`-r --replace <standaloneJarFilePath>`逻辑处理方式 *（原先为判断是否包含flyway依赖，不包含则自动加入flyway依赖用于数据库版本管理，**现改为不作任何判断，进行全量替换**）*

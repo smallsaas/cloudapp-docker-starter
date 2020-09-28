@@ -177,7 +177,7 @@ while [ -n "$1" ]; do
    -h | --help) usage ;;
    -i | --import) import_db "$@" ;;
    -l | --list) list_lib ;;
-   -lt) list_table ;;
+   -lt| --list-table) list_table ;;
    -m | --maven) deploy_lib_by_maven "$@" ;;
    -s | --ssh) ssh_copy_id ;;
    -r | --replace) replace_standalone "$@" ;;
