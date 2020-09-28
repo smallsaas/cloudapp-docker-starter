@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+VERSION='deployless_pages 1.0.27 2020-09-27 LTS'
 ## host ##
 target='root@server_ip:/root/dev/web'
 #### split from target  below ###
@@ -34,21 +35,17 @@ deploy_page() {
 }
 
 delete_page() {
-   if [[ ! $mod || ! $routerName || ! $routerPath ]]; then
-   usage
-   fi
-   if [ ! -d $(readlink -f $mod) ]; then
-      echo page $mod not exists
-      exit
+   if [ $# -nq 3 ]; then
+      usage
    fi
    echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh $*"
+   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh -d $2 $3"
    exit
 }
 
 list_page() {
    echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh $*"
+   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh -l"
    exit
 }
 
@@ -91,20 +88,29 @@ ssh_copy_id() {
 }
 
 update() {
+   shift
    echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh $*"
+   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh -u $*"
    exit
 }
 
 usage() {
+   echo ''
    echo 'Usage: bash deployless_pages.sh [command] <parameter>'
    echo '  e.g. bash deployless_pages.sh web/src/pages/page_test 菜单名称 page_test'
-   echo
+   echo ''
    echo '  -c  --crudless <yamlFilePath> <apiName> <pageName> <routerName> 快速生成代码并部署'
    echo '  -d  --delete <pageName> 删除页面'
+   echo '  -h  --help   显示使用帮助'
    echo '  -l  --list   页面列表'
-   echo '  -s  --ssh    保存本地ssh的公共密钥至云端'
+   echo '  -s  --ssh    免密验证'
    echo '  -u  --update <module_name> 更新sandbox web资源'
+   echo '  -v  --version 显示sandbox版本信息'
+   exit
+}
+
+version() {
+   echo $VERSION
    exit
 }
 
@@ -115,11 +121,13 @@ fi
 while [ -n "$1" ]
 do
 case $1 in
-   -c) deploy_yml "$@";;
-   -d) delete_page "$@";;
-   -l) list_lib;;
-   -s) ssh_copy_id;;
-   -u) update "$@";;
+   -c|--crudless) deploy_yml "$@";;
+   -d|--delete) delete_page "$@";;
+   -h|--help) usage;;
+   -l|--list) list_lib;;
+   -s|--ssh) ssh_copy_id;;
+   -u|--update) update "$@";;
+   -v|--version) version;;
    *) deploy_page "$@";;
 esac
 shift

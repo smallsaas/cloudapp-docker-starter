@@ -52,9 +52,12 @@ services:
       TZ: "Asia/Shanghai"
       MYSQL_DATABASE: database
       MYSQL_ROOT_PASSWORD: root
+    working_dir: /mysql
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/sql_mode.cnf:/etc/mysql/mysql.conf.d/sql_mode.cnf
+      - ./mysql:/mysql
+      - ./mysql/tmp:/mysql/tmp
 
   swagger:
     image: swaggerapi/swagger-ui

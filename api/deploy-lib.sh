@@ -40,7 +40,6 @@ fi
 
 ## iterate lib
 cd lib
-
 jar=$2
 jar=${jar##*/}
 ## delete
@@ -144,5 +143,4 @@ cd ..
 mv lib/$fixapp $app
 #cleanup
 rm -rf lib/*
-
 echo "deploy-lib.sh exec success"

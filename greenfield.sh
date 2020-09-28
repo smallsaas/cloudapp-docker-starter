@@ -24,6 +24,15 @@ else
   echo docker-compose.yml not found!
 fi
 
+if [ -f $webapps/docker-compose-manual.yml ]; then
+  sed -i "s/MYSQL_DATABASE:[[:space:]]*[a-zA-Z\.]*/MYSQL_DATABASE: $database/" $webapps/docker-compose-manual.yml
+  sed -i "s/container_name:[[:space:]]*\${[a-zA-Z\.]*}-/container_name: $app-/g" $webapps/docker-compose-manual.yml
+  sed -i "s/-[[:space:]]*[0-9]*:80/- $port:80/" $webapps/docker-compose-manual.yml
+  echo Initialize docker-compose-manual.yml successfully.
+else
+  echo docker-compose-manual.yml not found!
+fi
+
 if [ -f $webapps/api/config/application.yml ]; then
   sed -i "s/jdbc:mysql:\/\/mysqlserver:3306\/[a-zA-Z\.]*?/jdbc:mysql:\/\/${app}-mysql:3306\/$database?/" $webapps/api/config/application.yml
   echo Initialize application.yml successfully.
@@ -50,6 +59,13 @@ if [ -f $webapps/web/docker-deploy-page.sh ]; then
   echo Initialize docker-deploy-page.sh successfully.
 else
   echo $webapps/web/docker-deploy-page.sh not found!
+fi
+
+if [ -f $webapps/mysql/docker-deploy-db.sh ]; then
+  sed -i "s/docker_tool=[[:space:]]*\${[a-zA-Z\.]*}-/docker_tool=${app}-/" $webapps/mysql/docker-deploy-db.sh
+  echo Initialize docker-deploy-db.sh successfully.
+else
+  echo $webapps/api/docker-deploy-db.sh not found!
 fi
 
 exit
