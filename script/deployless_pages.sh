@@ -7,6 +7,16 @@ app_path=${target##*:}
 ssh_host=${target%%:*}
 ####
 
+init() {
+   os_name=$(uname)
+   if [[ $os_name == 'Darwin' ]];then  ## MAC
+      if [ ! type greadlink >/dev/null 2>&1 ]; then
+         brew install coreutils
+      fi
+      ln -s /usr/local/bin/greadlink /usr/local/bin/readlink
+   fi
+}
+
 ## deploy page
 deploy_page() {
    mod=$1
@@ -113,6 +123,8 @@ version() {
    echo $VERSION
    exit
 }
+
+init
 
 if [ $# -eq 0 ]; then
    usage

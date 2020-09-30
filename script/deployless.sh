@@ -5,6 +5,16 @@ target='root@server_ip:/root/dev/api'
 app_path=${target##*:}
 ssh_host=${target%%:*}
 
+init() {
+   os_name=$(uname)
+   if [[ $os_name == 'Darwin' ]];then  ## MAC
+      if [ ! type greadlink >/dev/null 2>&1 ]; then
+         brew install coreutils
+      fi
+      ln -s /usr/local/bin/greadlink /usr/local/bin/readlink
+   fi
+}
+
 import_db() {
    sql=$2
    if [ ! -f $(readlink -f $sql) ]; then
@@ -18,7 +28,7 @@ import_db() {
    scp $(readlink -f $sql) ${target}/../mysql/tmp
    ssh $ssh_host "cd $app_path/../mysql && sh docker-deploy-db.sh -i $2"
    exit
-}i
+}
 
 export_db() {
    if [ $# -ne 3 ];then
@@ -164,6 +174,8 @@ version() {
    echo $VERSION
    exit
 }
+
+init
 
 if [ $# -eq 0 ]; then
    usage
