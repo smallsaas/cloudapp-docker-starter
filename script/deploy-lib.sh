@@ -56,9 +56,9 @@ elif [[ "$option" =~ $list ]]; then
 	exit
 elif [[ "$option" =~ $crudless ]]; then
 	java -jar ../cg-cli.jar $jar $3 $4
-	cd jar
+	cd $jar
 	mvn package
-	mv ./target/*-1.0-SNAPSHOT.jar ../
+	mv ./target/*-1.0-SNAPSHOT.jar ../../
 	cd ..
 	if [[ $(pwd) =~ 'lib' ]]; then
 		rm -rf $(ls | egrep -v '*.jar')

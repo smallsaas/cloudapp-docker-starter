@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-VERSION='deployless 1.0.28 2020-09-28 LTS'
+VERSION='deployless 1.1.28 2020-10-28 LTS'
 ## host ##
 target='root@server_ip:/root/dev/api'
 app_path=${target##*:}
@@ -151,22 +151,40 @@ list_table() {
    exit
 }
 
+# code_generate() {
+#    if [ $# -ne 3 ]; then
+#       usage
+#    elif [ ! -f $2 ] || [[ ! $2 =~ .sql$ ]] || [ ! -f $3 ] ||  [[ ! $3 =~ .json$ ]]
+#          echo ''
+#          echo 'Invaild file variables(*.sql,*.crud.json), code generate MUST use by *.sql and *.json config files.'
+#          echo ''
+#          echo 'You can generate config files with crudless-cli.'
+#          echo 'git clone https://github.com/kequandian/hub.crudless.zerocode.git'
+#          exit
+#    else
+#       echo scp $(readlink -f $jar) ${target}/lib
+#       scp $(readlink -f $jar) ${target}/lib
+#       echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh $jar\"
+#       ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh $jar"
+#    fi
+# }
+
 usage() {
    echo ''
-   echo 'Usage: deployless [command] <parameter>'
-   echo '  e.g. deployless.sh test.jar'
+   echo 'Usage: bash deployless.sh [command] <parameter>'
+   echo '  e.g. bash deployless.sh test.jar              默认执行装配操作'
    echo ''
-   echo '  -d  --delete <jarName> 删除资源包'
-   echo '  -e  --export <tableName> <savePath> 导出云端数据库'
-   echo '  -f  --force  <jarFilePath> 强制装配资源包'
-   echo '  -h  --help   显示使用帮助'
-   echo '  -i  --import <sqlFilePath> 导入SQL文件'
-   echo '  -l  --list   显示基础包中资源列表'
-   echo '  -lt --list table 显示数据库列表'
-   echo '  -m  --maven  <groupId:artifactId:Version> 从Remote Repository拉取资源包并装配'
-   echo '  -s  --ssh    免密验证'
-   echo '  -r  --replace <standaloneJarFilePath> 全量替换standalone.jar（app.jar）包'
-   echo '  -v  --version 显示sandbox版本信息'
+   echo '  -d  --delete <jarName>                        删除资源包'
+   echo '  -e  --export <tableName> <savePath>           导出云端数.据库'
+   echo '  -f  --force  <jarFilePath>                    强制装配资源包'
+   echo '  -h  --help                                    显示使用帮助'
+   echo '  -i  --import <sqlFilePath>                    导入SQL文件'
+   echo '  -l  --list                                    显示基础包中资源列表'
+   echo '  -lt --list-table                              显示数据库列表'
+   echo '  -m  --maven  <groupId:artifactId:Version>     从Remote Repository拉取资源包并装配'
+   echo '  -s  --ssh                                     免密验证'
+   echo '  -r  --replace <standaloneJarFilePath>         全量替换standalone.jar（app.jar）包'
+   echo '  -v  --version                                 显示sandbox版本信息'
    exit
 }
 
