@@ -2,6 +2,7 @@
 VERSION='deployless 1.1.28 2020-10-28 LTS'
 ## host ##
 target='root@server_ip:/root/dev/api'
+port='22'
 app_path=${target##*:}
 ssh_host=${target%%:*}
 
@@ -25,8 +26,8 @@ import_db() {
       exit
    fi
    echo scp $(readlink -f $sql) ${target}/../mysql/tmp
-   scp $(readlink -f $sql) ${target}/../mysql/tmp
-   ssh $ssh_host "cd $app_path/../mysql && sh docker-deploy-db.sh -i $2"
+   scp -P $port $(readlink -f $sql) ${target}/../mysql/tmp
+   ssh -p $port $ssh_host "cd $app_path/../mysql && sh docker-deploy-db.sh -i $2"
    exit
 }
 
@@ -34,7 +35,7 @@ export_db() {
    if [ $# -ne 3 ];then
       usage
    else
-      ssh $ssh_host "cd $app_path/../mysql && sh docker-deploy-db.sh -e $2" >$3
+      ssh -p $port $ssh_host "cd $app_path/../mysql && sh docker-deploy-db.sh -e $2" >$3
       echo Result file path: $(readlink -f $3)
    fi
    exit
@@ -50,9 +51,9 @@ replace_standalone() {
       exit
    fi
    echo scp $(readlink -f $jar) ${target}/lib
-   scp $(readlink -f $jar) ${target}/lib
+   scp -P $port $(readlink -f $jar) ${target}/lib
    echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh $1 $2\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh -r $2"
+   ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-lib.sh -r $2"
    exit
 }
 
@@ -66,9 +67,9 @@ deploy_lib() {
       exit
    fi
    echo scp $(readlink -f $jar) ${target}/lib
-   scp $(readlink -f $jar) ${target}/lib
+   scp -P $port $(readlink -f $jar) ${target}/lib
    echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh $jar\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh $jar"
+   ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-lib.sh $jar"
    exit
 }
 
@@ -82,9 +83,9 @@ deploy_lib_force() {
       exit
    fi
    echo scp $(readlink -f $jar) ${target}/lib
-   scp $(readlink -f $jar) ${target}/lib
+   scp -P $port $(readlink -f $jar) ${target}/lib
    echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh -f $jar\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh -f $jar" 
+   ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-lib.sh -f $jar" 
    exit
 }
 
@@ -101,7 +102,7 @@ deploy_lib_by_maven() {
       usage
    fi
    echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh -m $jar\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh -m $jar"
+   ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-lib.sh -m $jar"
    exit
 }
 
@@ -113,7 +114,7 @@ delete_lib() {
       jar=$2
       if [ $jar ]; then
          echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh -d $jar\"
-         ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh -d $jar"
+         ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-lib.sh -d $jar"
       fi
    fi
    exit
@@ -125,7 +126,7 @@ list_lib() {
    else
       option=$1
       echo ssh $ssh_host \"cd $app_path exec sh docker-deploy-lib.sh -l\"
-      ssh $ssh_host "cd $app_path && sh docker-deploy-lib.sh -l"
+      ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-lib.sh -l"
    fi
    exit
 }
@@ -147,7 +148,7 @@ ssh_copy_id() {
 }
 
 list_table() {
-   ssh $ssh_host "cd $app_path/../mysql && sh docker-deploy-db.sh -l"
+   ssh -p $port $ssh_host "cd $app_path/../mysql && sh docker-deploy-db.sh -l"
    exit
 }
 

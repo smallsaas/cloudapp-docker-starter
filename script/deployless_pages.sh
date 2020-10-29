@@ -2,6 +2,7 @@
 VERSION='deployless_pages 1.0.27 2020-09-27 LTS'
 ## host ##
 target='root@server_ip:/root/dev/web'
+port='22'
 #### split from target  below ###
 app_path=${target##*:}
 ssh_host=${target%%:*}
@@ -34,13 +35,13 @@ deploy_page() {
    echo tar -cvf ${mod}.tar ${mod}
    tar -cvf $(readlink -f $mod).tar ${mod}
    echo scp ${mod}.tar $target/src/pages
-   scp ${mod}.tar $target/src/pages
+   scp -P $port ${mod}.tar $target/src/pages
    ## clean after scp
    echo rm ${mod}.tar
    rm ${mod}.tar
 
    echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh $mod $routerName $routerPath"
+   ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-page.sh $mod $routerName $routerPath"
    exit
 }
 
@@ -49,13 +50,13 @@ delete_page() {
       usage
    fi
    echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh -d $2 $3"
+   ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-page.sh -d $2 $3"
    exit
 }
 
 list_page() {
    echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh -l"
+   ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-page.sh -l"
    exit
 }
 
@@ -74,10 +75,10 @@ deploy_yml() {
       exit
    fi
    echo scp $yml $target/tmp
-   scp $(readlink -f $yml) $target/tmp
+   scp -P $port $(readlink -f $yml) $target/tmp
 
    echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $yml $apiName $pageName $routerName $routerPath\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh -c $yml $apiName $pageName $routerName $routerPath"
+   ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-page.sh -c $yml $apiName $pageName $routerName $routerPath"
    exit
 }
 
@@ -100,7 +101,7 @@ ssh_copy_id() {
 update() {
    shift
    echo ssh $ssh_host \"cd $app_path and exec docker-deploy-page.sh $*\"
-   ssh $ssh_host "cd $app_path && sh docker-deploy-page.sh -u $*"
+   ssh -p $port $ssh_host "cd $app_path && sh docker-deploy-page.sh -u $*"
    exit
 }
 
