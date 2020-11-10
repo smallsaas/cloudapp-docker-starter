@@ -7,6 +7,10 @@
 
 ## 2. 更新日志
 
+### 【2020-11-10】
+
+- 新增支持脚本工具`deployless.sh`中端口`port`选项
+
 ### 【2020-09-28】
 
 - 新增`deploy-db.sh、docker-deploy-db.sh`文件用于管理SandBox中的数据表

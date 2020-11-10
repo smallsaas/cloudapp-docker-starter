@@ -90,8 +90,8 @@ ssh_copy_id() {
       if [ ! -f $rsa_path ]; then
          ssh-keygen -t rsa
       fi
-      echo ssh-copy-id -i ~/.ssh/id_rsa.pub $ssh_host
-      ssh-copy-id -i ~/.ssh/id_rsa.pub $ssh_host
+      echo ssh-copy-id -i ~/.ssh/id_rsa.pub -p $port $ssh_host
+      ssh-copy-id -i ~/.ssh/id_rsa.pub -p $port $ssh_host
    else
       echo 'Please install Git tool.'
    fi

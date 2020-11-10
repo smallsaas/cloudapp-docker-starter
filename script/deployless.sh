@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-VERSION='deployless 1.1.28 2020-10-28 LTS'
+VERSION='deployless 1.1.28 2020-11-10 LTS'
 ## host ##
 target='root@server_ip:/root/dev/api'
 port='22'
@@ -139,8 +139,8 @@ ssh_copy_id() {
       if [ ! -f $rsa_path ]; then
          ssh-keygen -t rsa
       fi
-      echo ssh-copy-id -i ~/.ssh/id_rsa.pub $ssh_host
-      ssh-copy-id -i ~/.ssh/id_rsa.pub $ssh_host
+      echo ssh-copy-id -i ~/.ssh/id_rsa.pub -p $port $ssh_host
+      ssh-copy-id -i ~/.ssh/id_rsa.pub -p $port $ssh_host
    else
       echo 'Please install Git tool.'
    fi
