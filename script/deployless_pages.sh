@@ -137,8 +137,8 @@ case $1 in
    -c|--crudless) deploy_yml "$@";;
    -d|--delete) delete_page "$@";;
    -h|--help) usage;;
-   -l|--list) list_lib;;
-   -s|--ssh) ssh_copy_id;;
+   -l|--list) list_lib "$@";;
+   -s|--ssh) ssh_copy_id "$@";;
    -u|--update) update "$@";;
    -v|--version) version;;
    *) deploy_page "$@";;

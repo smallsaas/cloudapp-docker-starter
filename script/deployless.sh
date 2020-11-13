@@ -207,10 +207,10 @@ while [ -n "$1" ]; do
    -f | --force) deploy_lib "$@" ;;
    -h | --help) usage ;;
    -i | --import) import_db "$@" ;;
-   -l | --list) list_lib ;;
-   -lt| --list-table) list_table ;;
+   -l | --list) list_lib "$@" ;;
+   -lt| --list-table) list_table "$@" ;;
    -m | --maven) deploy_lib_by_maven "$@" ;;
-   -s | --ssh) ssh_copy_id ;;
+   -s | --ssh) ssh_copy_id "$@" ;;
    -r | --replace) replace_standalone "$@" ;;
    -v | --version) version ;;
    *) deploy_lib "$@" ;;
